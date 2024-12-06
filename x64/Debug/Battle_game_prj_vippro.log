@@ -1,0 +1,42 @@
+﻿  Player.cpp
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(82,31): warning C4244: '+=': conversion from 'float' to 'T', possible loss of data
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(82,31): warning C4244:         with
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(82,31): warning C4244:         [
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(82,31): warning C4244:             T=int
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(82,31): warning C4244:         ]
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(85,32): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(85,32): warning C4244:         with
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(85,32): warning C4244:         [
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(85,32): warning C4244:             T=int
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(85,32): warning C4244:         ]
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(95,31): warning C4244: '+=': conversion from 'float' to 'T', possible loss of data
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(95,31): warning C4244:         with
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(95,31): warning C4244:         [
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(95,31): warning C4244:             T=int
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(95,31): warning C4244:         ]
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(98,31): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(98,31): warning C4244:         with
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(98,31): warning C4244:         [
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(98,31): warning C4244:             T=int
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(98,31): warning C4244:         ]
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(110,31): warning C4244: '+=': conversion from 'float' to 'T', possible loss of data
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(110,31): warning C4244:         with
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(110,31): warning C4244:         [
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(110,31): warning C4244:             T=int
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(110,31): warning C4244:         ]
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(113,31): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(113,31): warning C4244:         with
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(113,31): warning C4244:         [
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(113,31): warning C4244:             T=int
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(113,31): warning C4244:         ]
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(125,31): warning C4244: '+=': conversion from 'float' to 'T', possible loss of data
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(125,31): warning C4244:         with
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(125,31): warning C4244:         [
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(125,31): warning C4244:             T=int
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(125,31): warning C4244:         ]
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(128,31): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(128,31): warning C4244:         with
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(128,31): warning C4244:         [
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(128,31): warning C4244:             T=int
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(128,31): warning C4244:         ]
+  Battle_game_prj_vippro.vcxproj -> C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\x64\Debug\Battle_game_prj_vippro.exe
