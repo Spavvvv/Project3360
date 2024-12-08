@@ -22,7 +22,7 @@ protected:
 public:
 	
 	Weapon();
-	Weapon(sf::Texture*, float dirx, float diry, float posx, float posy, float spe, int dmg);
+	Weapon(sf::Texture*, float dirx, float diry, float posx, float posy, float spe, uint16_t dmg);
 	virtual ~Weapon();
 
 	const sf::FloatRect getBound() const;

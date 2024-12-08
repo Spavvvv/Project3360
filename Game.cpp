@@ -93,6 +93,29 @@ void Game::pollEvent()
 	}
 }
 
+void Game::updateEnemies() {
+	//mechanism to spawn enemies
+	static sf::Clock spawnTimer;
+	if (spawnTimer.getElapsedTime().asSeconds() > 1.f) { // Spawn every 5 seconds
+		this->spawnEnemy();
+		spawnTimer.restart();
+	}
+
+	for (int i = this->enemies.size() - 1; i >= 0; --i)
+	{
+		this->enemies[i]->update();
+
+		// Remove enemies that go off-screen
+		if (this->enemies[i]->getBounds().top + this->enemies[i]->getBounds().height < 0.f ||
+			this->enemies[i]->getBounds().top > this->window->getSize().y ||
+			this->enemies[i]->getBounds().left + this->enemies[i]->getBounds().width < 0.f ||
+			this->enemies[i]->getBounds().left > this->window->getSize().x)
+		{
+			delete this->enemies[i];
+			this->enemies.erase(this->enemies.begin() + i);
+		}
+	}
+}
 void Game::updateMovement()
 {
 
@@ -346,54 +369,6 @@ void Game::updateCombat() {
 	}
 }
 
-void Game::updateCombat() {
-	for (int i = this->weapons.size() - 1; i >= 0; --i)
-	{
-		bool weaponRemoved = false;			//variable to check if the weapon is erased
-
-		for (int j = this->enemies.size() - 1; j >= 0; --j)
-		{
-			if (this->weapons[i]->getBound().intersects(this->enemies[j]->getBounds())) {
-				//subtract enemy health
-				this->enemies[j]->setCurrentHp(enemies[j]->getCurrentHp() - this->weapons[i]->getDamage());
-
-				//delete enemy when collison happen and hp of enemy reach 0
-				if (this->enemies[j]->getCurrentHp() <= 0) {
-					this->point += enemies[j]->getPoint();
-					delete this->enemies[j];
-					this->enemies.erase(enemies.begin() + j);
-
-					//delete weapon when collison happen 
-					delete this->weapons[i];
-					this->weapons.erase(this->weapons.begin() + i);
-					weaponRemoved = true;
-					break; // Exit enemy loop as weapon is deleted
-				}
-			}
-		}
-
-		// Skip further processing of this weapon if it was removed
-		if (weaponRemoved) {
-			continue;
-		}
-	}
-
-	// Player-Enemy Collisions
-	for (int j = this->enemies.size() - 1; j >= 0; --j) {
-		if (this->player->globalBound().intersects(this->enemies[j]->getBounds())) {
-			this->player->setCurrentHp(this->player->getCurrentHp() - (this->enemies[j]->getDamage()));
-			std::cout << "Player gets hit: -" << this->enemies[j]->getDamage() << "damage \n";
-
-			if (this->player->getCurrentHp() <= 0) {
-				this->player->setCurrentHp(0);
-				std::cout << "Player is dead\n";
-			}
-			//remove enemy when collison happen
-			delete this->enemies[j];
-			this->enemies.erase(enemies.begin() + j);
-		}
-	}
-}
 
 void Game::renderEnemies() {
 	for (auto* enemy : this->enemies) {

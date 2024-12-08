@@ -14,7 +14,7 @@ Weapon::Weapon()
 
 }
 
-Weapon::Weapon(sf::Texture* text, float dirx, float diry, float posX, float posY, float velocity, int dmg)
+Weapon::Weapon(sf::Texture* text, float dirx, float diry, float posX, float posY, float velocity, uint16_t dmg)
 {
 	if (text != nullptr) {
 		this->sprite.setTexture(*text);
