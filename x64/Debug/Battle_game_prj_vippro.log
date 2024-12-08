@@ -1,42 +1,31 @@
-﻿  Player.cpp
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(82,31): warning C4244: '+=': conversion from 'float' to 'T', possible loss of data
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(82,31): warning C4244:         with
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(82,31): warning C4244:         [
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(82,31): warning C4244:             T=int
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(82,31): warning C4244:         ]
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(85,32): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(85,32): warning C4244:         with
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(85,32): warning C4244:         [
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(85,32): warning C4244:             T=int
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(85,32): warning C4244:         ]
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(95,31): warning C4244: '+=': conversion from 'float' to 'T', possible loss of data
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(95,31): warning C4244:         with
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(95,31): warning C4244:         [
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(95,31): warning C4244:             T=int
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(95,31): warning C4244:         ]
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(98,31): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(98,31): warning C4244:         with
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(98,31): warning C4244:         [
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(98,31): warning C4244:             T=int
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(98,31): warning C4244:         ]
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(110,31): warning C4244: '+=': conversion from 'float' to 'T', possible loss of data
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(110,31): warning C4244:         with
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(110,31): warning C4244:         [
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(110,31): warning C4244:             T=int
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(110,31): warning C4244:         ]
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(113,31): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(113,31): warning C4244:         with
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(113,31): warning C4244:         [
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(113,31): warning C4244:             T=int
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(113,31): warning C4244:         ]
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(125,31): warning C4244: '+=': conversion from 'float' to 'T', possible loss of data
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(125,31): warning C4244:         with
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(125,31): warning C4244:         [
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(125,31): warning C4244:             T=int
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(125,31): warning C4244:         ]
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(128,31): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(128,31): warning C4244:         with
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(128,31): warning C4244:         [
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(128,31): warning C4244:             T=int
-C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.cpp(128,31): warning C4244:         ]
-  Battle_game_prj_vippro.vcxproj -> C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\x64\Debug\Battle_game_prj_vippro.exe
+﻿  bigSword.cpp
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Weapon.h(5,10): error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+  (compiling source file 'bigSword.cpp')
+  
+  Enemy.cpp
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Enemy.h(4,10): error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+  (compiling source file 'Enemy.cpp')
+  
+  Game.cpp
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Game.h(2,10): error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+  (compiling source file 'Game.cpp')
+  
+  katana.cpp
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Weapon.h(5,10): error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+  (compiling source file 'katana.cpp')
+  
+  Player.cpp
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Player.h(2,10): error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+  (compiling source file 'Player.cpp')
+  
+  Source.cpp
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Source.cpp(1,10): error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+  suriken.cpp
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Weapon.h(5,10): error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+  (compiling source file 'suriken.cpp')
+  
+  Weapon.cpp
+C:\Users\Admin\Documents\SFML-2.6.1\Battle_game_prj_vippro\Weapon.h(5,10): error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+  (compiling source file 'Weapon.cpp')
+  
+  Generating Code...

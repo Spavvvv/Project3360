@@ -61,3 +61,9 @@ void Weapon::render(sf::RenderTarget* tar)
 		std::cerr << "Render target is null in Sword::render." << std::endl;
 	}
 }
+void Weapon::setDamage(uint16_t dmg) {
+	this->damage = dmg;
+}
+uint16_t Weapon::getDamage() {
+	return this->damage;
+}

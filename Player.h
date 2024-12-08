@@ -46,5 +46,8 @@ public:
 	bool canAttack3();
 	void movement(const float, const float);
 	void render(sf::RenderTarget &);
+
+	int getCurrentHp();
+	void setCurrentHp(int hp);
 };
 

@@ -11,6 +11,8 @@
 #include"katana.h"
 #include"suriken.h"
 #include"bigSword.h"
+#include"Enemy.h"
+
 class Game
 {
 private:
@@ -25,6 +27,12 @@ private:
 	void initWindow();
 	void initPlayer();
 	void initTexture();
+
+	//enemy
+	std::vector<Enemy*> enemies;  // Vector to hold enemy instances
+	std::map<sf::String, sf::Texture*> enemyTextures;    // Texture for the enemies
+	uint16_t point;
+
 public:
 	int sk1 = 0;
 	Game();
@@ -37,5 +45,11 @@ public:
 	void updateWeapon();
 	void update();
 	void run();
+
+
+	void spawnEnemy();           // Method to spawn a new enemy
+	void updateEnemies();        // Update all enemies
+	void updateCombat();
+	void renderEnemies();        // Render all enemies
 };
 

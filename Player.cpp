@@ -11,15 +11,15 @@ void Player::initTexture()
 	{
 		std::cout << "Could not load the character file" << std::endl;
 	}
-	if (!texture3.loadFromFile("texture\\Samurai\\Attack_3.png"))
+	if (!texture3.loadFromFile("texture\\Samurai\\Attack_1.png"))
 	{
 		std::cout << "Could not load the character file" << std::endl;
 	}
-	if (!texture4.loadFromFile("texture\\Samurai\\run.png"))
+	if (!texture4.loadFromFile("texture\\Samurai\\Attack_2.png"))
 	{
 		std::cout << "Could not load the character file" << std::endl;
 	}
-	if (!texture5.loadFromFile("texture\\Samurai\\run.png"))
+	if (!texture5.loadFromFile("texture\\Samurai\\Attack_3.png"))
 	{
 		std::cout << "Could not load the character file" << std::endl;
 	}
@@ -131,6 +131,38 @@ void Player::updateAnimation()
 			}
 			this->animationTime.restart();
 			this->sprite.setTexture(texture3);
+			this->sprite.setTextureRect(currentFrame);
+		}
+	}
+	else if (this->animateStatus == PLAYER_ANIMATION_STATUS::ATTACKING2)
+	{
+		if (animationTime.getElapsedTime().asSeconds() >= 0.2f)
+		{
+			this->currentFrame.left += 128.f;
+			if (this->currentFrame.left >= 512.f)
+			{
+				this->currentFrame.left = 0.f;
+				waitTimeanimation();
+				this->animateStatus = PLAYER_ANIMATION_STATUS::IDLE;
+			}
+			this->animationTime.restart();
+			this->sprite.setTexture(texture4);
+			this->sprite.setTextureRect(currentFrame);
+		}
+	}
+	else if (this->animateStatus == PLAYER_ANIMATION_STATUS::ATTACKING3)
+	{
+		if (animationTime.getElapsedTime().asSeconds() >= 0.2f)
+		{
+			this->currentFrame.left += 128.f;
+			if (this->currentFrame.left >= 384.f)
+			{
+				this->currentFrame.left = 0.f;
+				waitTimeanimation();
+				this->animateStatus = PLAYER_ANIMATION_STATUS::IDLE;
+			}
+			this->animationTime.restart();
+			this->sprite.setTexture(texture5);
 			this->sprite.setTextureRect(currentFrame);
 		}
 	}
@@ -249,4 +281,17 @@ bool Player::canAttack3()
 const sf::FloatRect Player::globalBound() const
 {
 	return this->sprite.getGlobalBounds();
+}
+
+
+// combat
+
+int Player::getCurrentHp()
+{
+	return this->hp;
+}
+
+void Player::setCurrentHp(int hp)
+{
+	this->hp = hp;
 }

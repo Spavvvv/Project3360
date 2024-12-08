@@ -18,7 +18,7 @@ private:
 
 protected:
 	sf::Sprite sprite;
-	int damage;
+	uint16_t damage;                                   // Damage value for the weapon
 public:
 	
 	Weapon();
@@ -28,6 +28,9 @@ public:
 	const sf::FloatRect getBound() const;
 	void update();
 	void render(sf::RenderTarget* tar);
+	void setDamage(uint16_t dmg);               // Set the damage of the weapon
+	uint16_t getDamage();
+
 };
 
 #endif // WEAPON_H
