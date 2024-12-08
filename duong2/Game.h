@@ -6,12 +6,16 @@
 #include <SFML/Network.hpp>
 #include<vector>
 #include<map>
+
+
 #include"Player.h"
 #include"Weapon.h"
 #include"katana.h"
 #include"suriken.h"
 #include"bigSword.h"
 #include"Enemy.h"
+
+#include <sstream>
 
 class Game
 {
@@ -33,10 +37,27 @@ private:
 	std::map<sf::String, sf::Texture*> enemyTextures;    // Texture for the enemies
 	uint16_t point;
 
+	sf::Font font;
+	sf::Text text;
+	sf::Text endGameText;
+
+	sf::RectangleShape playerHpBar;
+	sf::RectangleShape playerHpBarMax;
+
+	bool endGame = false;
+
 public:
 	int sk1 = 0;
 	Game();
 	virtual ~Game();
+
+	void initFont();
+	void initText();
+	void updateText();
+	void initGUI();
+	void updateGUI();
+	void renderGUI();
+
 	void pollEvent();
 	void render();
 	void renderPlayer();

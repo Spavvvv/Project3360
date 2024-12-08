@@ -48,6 +48,7 @@ public:
 	void render(sf::RenderTarget &);
 
 	int getCurrentHp();
+	const int& getHpMax() const;
 	void setCurrentHp(int hp);
 };
 

@@ -36,7 +36,7 @@ void Player::initSprite()
 	this->sprite.setTexture(this->texture);
 	this->currentFrame = sf::IntRect(0, 64, 128, 64);
 	this->sprite.setTextureRect(currentFrame);
-	this->sprite.scale(1.f, 1.f);
+	this->sprite.scale(2.f, 2.f);
 	this->sprite.setPosition(30.f, 500.f);
 }
 
@@ -336,6 +336,11 @@ const sf::FloatRect Player::globalBound() const
 int Player::getCurrentHp()
 {
 	return this->hp;
+}
+
+const int& Player::getHpMax() const
+{
+	return hpmax;
 }
 
 void Player::setCurrentHp(int hp)

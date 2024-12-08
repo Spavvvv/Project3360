@@ -17,6 +17,7 @@ void Game::initTexture()
 	this->textures["SURIKEN"] = new sf::Texture();
 	this->textures["SURIKEN"]->loadFromFile("texture\\png\\weapon\\40.png");
 
+
 	this->textures["ENEMY_1"] = new sf::Texture();
 	this->textures["ENEMY_1"]->loadFromFile("texture\\enemy\\enemy_1.png");
 
@@ -26,8 +27,6 @@ void Game::initTexture()
 	this->textures["ENEMY_3"] = new sf::Texture();
 	this->textures["ENEMY_3"]->loadFromFile("texture\\enemy\\enemy_3.png");
 }
-
-
 
 void Game::initPlayer()
 {
@@ -42,6 +41,9 @@ Game::Game()
 	this->initWindow();
 	this->initTexture();
 	this->initPlayer();
+	initFont();
+	initText();
+	initGUI();
 
 }
 
@@ -70,13 +72,72 @@ Game::~Game()
 	}
 }
 
+void Game::initFont()
+{
+	if (!font.loadFromFile("C:/Windows/Fonts/Arial.ttf")) {
+		std::cout << "Could not load font !" << '\n';
+	}
+}
+
+void Game::initText()
+{
+	text.setFont(font);
+	text.setCharacterSize(20);
+	text.setFillColor(sf::Color::White);
+	text.setPosition(sf::Vector2f(30.f, 30.f));
+
+	endGameText.setFont(font);
+	endGameText.setCharacterSize(90);
+	endGameText.setFillColor(sf::Color::Red);
+	endGameText.setString("You are lose, NIGGA !");
+	endGameText.setPosition(
+	window->getSize().x / 2.f - endGameText.getGlobalBounds().width / 2.f,
+	window->getSize().y / 2.f - endGameText.getGlobalBounds().height / 2.f
+	);
+}
+
+void Game::initGUI()
+{
+
+	playerHpBar.setSize(sf::Vector2f(500.f, 25.f));
+	playerHpBar.setFillColor(sf::Color::Red);
+	playerHpBar.setPosition(sf::Vector2f(30.f, 60.f));
+
+	playerHpBarMax = playerHpBar;
+	playerHpBarMax.setFillColor(sf::Color(25,25,25,200));
+
+}
+
+void Game::updateGUI()
+{
+	std::stringstream ss;
+
+	ss << "Points: " << point;
+
+	text.setString(ss.str());
+
+	//Hp bar
+	float hpPercent = static_cast<float>(player->getCurrentHp()) / player->getHpMax();
+	playerHpBar.setSize(sf::Vector2f(500.f * hpPercent, playerHpBar.getSize().y));
+}
+
+void Game::renderGUI()
+{
+	window->draw(text);
+	window->draw(playerHpBarMax);
+	window->draw(playerHpBar);
+}
+
 //Functions
 void Game::run()
 {
 	while (this->window->isOpen())
 	{
 		this->pollEvent();
+
+		if(player->getCurrentHp() > 0)
 		this->update();
+
 		this->render();
 	}
 }
@@ -253,6 +314,8 @@ void Game::update()
 	//update combat
 	this->updateCombat();
 
+
+	updateGUI();
 }
 
 
@@ -270,7 +333,11 @@ void Game::render()
 
 	//enemy
 	renderEnemies();
+	renderGUI();
 
+	if (endGame == true) {
+		window->draw(endGameText);
+	}
 	this->window->display();
 }
 
@@ -309,7 +376,7 @@ void Game::updateCombat() {
 		{
 			if (this->weapons[i]->getBound().intersects(this->enemies[j]->getBounds())) {
 				//subtract enemy health
-				if (enemies[j]->getCurrentHp() - this->weapons[i]->getDamage()) {
+				if (enemies[j]->getCurrentHp() - this->weapons[i]->getDamage() <=0) {
 					this->enemies[j]->setCurrentHp(0);
 				}
 				else
@@ -347,7 +414,11 @@ void Game::updateCombat() {
 			if (this->player->getCurrentHp() <= 0) {
 				this->player->setCurrentHp(0);
 				std::cout << "Player is dead\n";
+				endGame = true;
 			}
+		}
+		if (endGame == true) {
+			break;
 		}
 	}
 }
@@ -355,7 +426,7 @@ void Game::updateCombat() {
 void Game::updateEnemies() {
 	//mechanism to spawn enemies
 	static sf::Clock spawnTimer;
-	if (spawnTimer.getElapsedTime().asSeconds() > 5.f) { // Spawn every 5 seconds
+	if (spawnTimer.getElapsedTime().asSeconds() > 2.f) { // Spawn every 5 seconds
 		this->spawnEnemy();
 		spawnTimer.restart();
 	}
