@@ -88,3 +88,8 @@ void Enemy::render(sf::RenderTarget* target) {
     target->draw(this->sprite);
 }
 
+Enemy::~Enemy()
+{
+    delete texture;
+}
+

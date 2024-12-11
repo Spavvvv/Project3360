@@ -30,7 +30,7 @@ Weapon::Weapon(sf::Texture* text, float dirx, float diry, float posX, float posY
 
 Weapon::~Weapon()
 {
-
+    delete texture;
 }
 
 // Get the bounding rectangle of the sprite

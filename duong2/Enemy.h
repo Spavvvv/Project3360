@@ -44,6 +44,8 @@ public:
 	// Methods
 	void update();                            // Update the enemy's position
 	void render(sf::RenderTarget* target);    // Render the enemy
+
+	~Enemy();
 };
 
 #endif // ENEMY_H

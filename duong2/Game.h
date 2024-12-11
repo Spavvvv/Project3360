@@ -53,7 +53,6 @@ public:
 
 	void initFont();
 	void initText();
-	void updateText();
 	void initGUI();
 	void updateGUI();
 	void renderGUI();
