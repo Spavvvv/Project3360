@@ -47,6 +47,10 @@ public:
 	void movement(const float, const float);
 	void render(sf::RenderTarget &);
 
+
+	void setHp(int& Hp);
+	//void setDamage(int& Damage);
+
 	int getCurrentHp();
 	const int& getHpMax() const;
 	void setCurrentHp(int hp);

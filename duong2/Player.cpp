@@ -333,6 +333,17 @@ const sf::FloatRect Player::globalBound() const
 
 // combat
 
+void Player::setHp(int& Hp)
+{
+	hpmax += Hp;
+	hp = hpmax;
+}
+
+//void Player::setDamage(int& Damage)
+//{
+//	
+//}
+
 int Player::getCurrentHp()
 {
 	return this->hp;

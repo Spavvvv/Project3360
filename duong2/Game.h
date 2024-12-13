@@ -1,11 +1,15 @@
 #pragma once
+
+#include<vector>
+#include<map>
+#include <sstream>
+
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
-#include<vector>
-#include<map>
 
 
 #include"Player.h"
@@ -15,7 +19,10 @@
 #include"bigSword.h"
 #include"Enemy.h"
 
-#include <sstream>
+
+enum level{LEVEL1, LEVEL2, LEVEL3, LEVEL4, LEVEL5, 
+	LEVEL6, LEVEL7, LEVEL8, LEVEL9, LEVEL10,
+};
 
 class Game
 {
@@ -37,14 +44,23 @@ private:
 	std::map<sf::String, sf::Texture*> enemyTextures;    // Texture for the enemies
 	uint16_t point;
 
+	//stuffs for ending game
 	sf::Font font;
 	sf::Text text;
 	sf::Text endGameText;
+	sf::Text nextStageText;
+	bool endGame;
 
+	//stuff for GUI ingame
 	sf::RectangleShape playerHpBar;
 	sf::RectangleShape playerHpBarMax;
+	
+	//stuff for next stage
+	int countMonster;
+	int countMonsterMax;
+	bool nextStage;
 
-	bool endGame = false;
+	int LEVEL;
 
 public:
 	int sk1 = 0;
@@ -56,6 +72,8 @@ public:
 	void initGUI();
 	void updateGUI();
 	void renderGUI();
+	void initSystem();
+
 
 	void pollEvent();
 	void render();
@@ -65,11 +83,14 @@ public:
 	void updateWeapon();
 	void update();
 	void run();
+	void playerDecision();
+	void cleanUpState();
 
 
 	void spawnEnemy();           // Method to spawn a new enemy
 	void updateEnemies();        // Update all enemies
 	void updateCombat();
 	void renderEnemies();        // Render all enemies
+
 };
 

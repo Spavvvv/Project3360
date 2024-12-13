@@ -10,14 +10,17 @@ void Game::initWindow()
 
 void Game::initTexture()
 {
+	//weapons
 	this->textures["SWORD"] = new sf::Texture();
 	this->textures["SWORD"]->loadFromFile("texture\\png\\weapon\\sword.png");
+
 	this->textures["KATANA"] = new sf::Texture();
 	this->textures["KATANA"]->loadFromFile("texture\\png\\weapon\\25.png");
+
 	this->textures["SURIKEN"] = new sf::Texture();
 	this->textures["SURIKEN"]->loadFromFile("texture\\png\\weapon\\40.png");
 
-
+	//enemies
 	this->textures["ENEMY_1"] = new sf::Texture();
 	this->textures["ENEMY_1"]->loadFromFile("texture\\enemy\\enemy_1.png");
 
@@ -30,7 +33,6 @@ void Game::initTexture()
 
 void Game::initPlayer()
 {
-	
 	this->player = new Player();
 }
 
@@ -41,6 +43,7 @@ Game::Game()
 	this->initWindow();
 	this->initTexture();
 	this->initPlayer();
+	initSystem();
 	initFont();
 	initText();
 	initGUI();
@@ -94,6 +97,15 @@ void Game::initText()
 	window->getSize().x / 2.f - endGameText.getGlobalBounds().width / 2.f,
 	window->getSize().y / 2.f - endGameText.getGlobalBounds().height / 2.f
 	);
+
+	nextStageText.setFont(font);
+	nextStageText.setCharacterSize(50);
+	nextStageText.setFillColor(sf::Color::Red);
+	nextStageText.setString("Done Stage" + LEVEL);
+	nextStageText.setPosition(
+		window->getSize().x / 2.f - nextStageText.getGlobalBounds().width / 2.f,
+		window->getSize().y / 2.f - nextStageText.getGlobalBounds().height / 2.f
+	);
 }
 
 void Game::initGUI()
@@ -128,6 +140,15 @@ void Game::renderGUI()
 	window->draw(playerHpBar);
 }
 
+void Game::initSystem()
+{
+	endGame = false;
+	nextStage = false;
+	countMonster = 0;
+	countMonsterMax = 1;
+	LEVEL = LEVEL1;
+}
+
 //Functions
 void Game::run()
 {
@@ -135,15 +156,65 @@ void Game::run()
 	{
 		this->pollEvent();
 
-		if(player->getCurrentHp() > 0)
-		this->update();
-
+		if (player->getCurrentHp() > 0 && nextStage == false)
+		{
+			this->update();
+		}
 		this->render();
+	}
+}
+
+void Game::playerDecision()
+{	
+	countMonster = 0;
+	countMonsterMax += 10;
+	countMonsterMax += LEVEL;
+	cleanUpState();
+}
+
+void Game::cleanUpState()
+{
+	//Delete weapons
+	for (auto* i : this->weapons)
+	{
+		delete i;
+	}
+
+	//Delete enemies
+	for (auto* enemy : this->enemies) {
+		delete enemy;
 	}
 }
 
 void Game::pollEvent()
 {
+
+	while (nextStage) {
+
+		window->clear();
+		window->draw(nextStageText);
+		window->display();
+
+		while (this->window->pollEvent(event))
+		{
+
+			if (event.Event::KeyPressed) {
+				if (event.Event::key.code == sf::Keyboard::F) {
+					LEVEL++;
+					nextStage = false;
+				}
+				else {
+					//window->close();
+				}
+			}
+
+			if (event.Event::type == sf::Event::Closed)
+				this->window->close();
+			if (event.Event::KeyPressed && event.Event::key.code == sf::Keyboard::Escape)
+				this->window->close();
+		}
+	}
+
 	sf::Event e;
 	while (this->window->pollEvent(e))
 	{
@@ -197,8 +268,8 @@ void Game::updateMovement()
 					0.f,
 					this->player->getPosition().x,
 					this->player->getPosition().y,
-					5.f,
-					40
+					5.f + LEVEL * 0.1f,
+					40 + LEVEL
 				)
 			);
 		}
@@ -208,7 +279,7 @@ void Game::updateMovement()
 		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)){
-		std::cout << "normal attack is on cooldown" << std::endl;
+		std::cout << "normal attack 2 is on cooldown" << std::endl;
 	}
 
 
@@ -223,14 +294,14 @@ void Game::updateMovement()
 				0.f,
 				this->player->getPosition().x,
 				this->player->getPosition().y,
-				10.f,
-				20
+				10.f + LEVEL * 0.5,
+				20 + LEVEL * 0.1f
 			)
 		);
 
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
-		std::cout << "normal attack is on cooldown" << std::endl;
+		std::cout << "normal attack 1 is on cooldown" << std::endl;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) &&
 		this->player->canAttack2())
@@ -239,38 +310,39 @@ void Game::updateMovement()
 		this->weapons.push_back(
 			new suriken(
 				this->textures["SURIKEN"],
-				1.f,
-				0.f,
+				1.f + LEVEL * 0.1f,
+				0.f + LEVEL * 0.1f,
 				this->player->getPosition().x,
 				this->player->getPosition().y,
-				10.f,
-				20
+				10.f + LEVEL,
+				20 + LEVEL * 0.3f
 			)
 		);
 		this->weapons.push_back(
 			new suriken(
 				this->textures["SURIKEN"],
-				1.f,
-				0.f,
+				1.f + LEVEL * 0.1f,
+				0.f + LEVEL * 0.1f,
 				this->player->getPosition().x,
 				this->player->getPosition().y - 30.f,
-				9.f,
-				20
+				9.f + LEVEL,
+				20 + LEVEL * 0.3f
 			)
-		); this->weapons.push_back(
+		); 
+		this->weapons.push_back(
 			new suriken(
 				this->textures["SURIKEN"],
-				1.f,
-				0.f,
+				1.f + LEVEL * 0.1f,
+				0.f + LEVEL * 0.1f,
 				this->player->getPosition().x,
 				this->player->getPosition().y + 30.f,
-				9.f,
-				20
+				9.f + LEVEL,
+				20 + LEVEL * 0.3f
 			)
 		);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) {
-		std::cout << "normal attack is on cooldown" << std::endl;
+		std::cout << "normal attack 3 is on cooldown" << std::endl;
 	}
 }
 
@@ -313,8 +385,6 @@ void Game::update()
 	this->updateEnemies();
 	//update combat
 	this->updateCombat();
-
-
 	updateGUI();
 }
 
@@ -347,25 +417,44 @@ void Game::renderPlayer()
 
 }
 void Game::spawnEnemy() {
-	//direction is set as default from right to left:
-	float dirX = -1.f;
-	float dirY = 0.f;
+	// Điểm spawn mặc định từ phải sang trái:
+	float dirX = -1.f;  // Quái di chuyển từ phải sang trái
+	float dirY = 0.f;   // Không có chuyển động dọc mặc định
+	float startX = this->window->getSize().x; // Điểm bắt đầu bên phải màn hình
+	float startY = static_cast<float>(rand() % this->window->getSize().y); // Vị trí Y ngẫu nhiên
 
-	float startX = this->window->getSize().x;								// Start at the far right
-	float startY = static_cast<float>(rand() % this->window->getSize().y);  // Random Y position
+	// Tính tỷ lệ spawn dựa trên LEVEL
+	int totalWeight = 100; // Tổng trọng số 100% cho loại quái
+	int rate1 = std::max(20, 60 - LEVEL * 3); // Quái 1 giảm tỷ lệ dần (tối thiểu còn 20%)
+	int rate2 = std::min(60, 30 + LEVEL * 2); // Quái 2 tăng tỷ lệ dần (tối đa 60%)
+	int rate3 = totalWeight - rate1 - rate2;  // Quái 3 là phần còn lại (xảy ra nhiều dần)
 
-	// Randomly select a texture for the enemy
-	int randomType = rand() % 3;											//choose random between 3 types
-	if (randomType == 0) {
-		enemies.push_back(new Enemy(this->textures["ENEMY_1"], 0.1f, 0.1f, dirX, dirY, startX, startY, 15, 1.5f, 30, 10));
+	// Đảm bảo không có giá trị âm cho tỷ lệ quái
+	rate1 = std::max(0, rate1);
+	rate2 = std::max(0, rate2);
+	rate3 = std::max(0, rate3);
+
+	// Roll random từ 1 đến 100
+	int randomType = rand() % totalWeight;
+
+	// Spawn quái vật dựa trên tỷ lệ
+	if (randomType < rate1) {
+		// Spawn ENEMY_1
+		enemies.push_back(new Enemy(this->textures["ENEMY_1"], 0.1f, 0.1f, dirX, dirY, startX, startY,
+			15 + LEVEL * 1.5f, 1.5f + LEVEL * 0.2f, 30 + LEVEL * 0.1f, 10 + LEVEL * 1.5f));
 	}
-	else if (randomType == 1) {
-		enemies.push_back(new Enemy(this->textures["ENEMY_2"], 0.2f, 0.2f, dirX, dirY, startX, startY, 20, 2.0f, 40, 20));
+	else if (randomType < rate1 + rate2) {
+		// Spawn ENEMY_2
+		enemies.push_back(new Enemy(this->textures["ENEMY_2"], 0.2f, 0.2f, dirX, dirY, startX, startY,
+			20 + LEVEL * 1.8f, 2.0f + LEVEL * 0.2f, 40 + LEVEL * 0.2f, 20 + LEVEL * 2.0f));
 	}
-	else if (randomType == 2) {
-		enemies.push_back(new Enemy(this->textures["ENEMY_3"], 0.3f, 0.3f, dirX, dirY, startX, startY, 25, 2.5f, 50, 30));
+	else {
+		// Spawn ENEMY_3
+		enemies.push_back(new Enemy(this->textures["ENEMY_3"], 0.3f, 0.3f, dirX, dirY, startX, startY,
+			25 + LEVEL * 2.0f, 2.5f + LEVEL * 0.05f, 50, 30 + LEVEL * 2.5f));
 	}
 }
+
 
 void Game::updateCombat() {
 	for (int i = this->weapons.size() - 1; i >= 0; --i)
@@ -387,11 +476,25 @@ void Game::updateCombat() {
 					this->point += enemies[j]->getPoint();
 					delete this->enemies[j];
 					this->enemies.erase(enemies.begin() + j);
+
+					//plus the counter of the total monster killed
+					countMonster++;
+					std::cout << countMonster << '\n';
 				}
+				//plus the counter of the total monster killed
+
+
 				//delete weapon when collison happen 
 				delete this->weapons[i];
 				this->weapons.erase(this->weapons.begin() + i);
 				weaponRemoved = true;
+
+				if (countMonster == countMonsterMax) {
+					nextStage = true;
+					playerDecision();
+					break;
+				}
+
 				break; // Exit enemy loop as weapon is deleted
 			}
 		}
@@ -399,6 +502,9 @@ void Game::updateCombat() {
 		// Skip further processing of this weapon if it was removed
 		if (weaponRemoved) {
 			continue;
+		}
+		if (nextStage == true) {
+			break;
 		}
 	}
 
@@ -426,7 +532,7 @@ void Game::updateCombat() {
 void Game::updateEnemies() {
 	//mechanism to spawn enemies
 	static sf::Clock spawnTimer;
-	if (spawnTimer.getElapsedTime().asSeconds() > 2.f) { // Spawn every 5 seconds
+	if (spawnTimer.getElapsedTime().asSeconds() > 5.f - LEVEL * 0.3) { // Spawn every 5 seconds
 		this->spawnEnemy();
 		spawnTimer.restart();
 	}
