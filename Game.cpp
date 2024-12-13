@@ -54,6 +54,7 @@ Game::~Game()
 {
 	delete this->window;
 	delete this->player;
+
 	//Delete textures
 	for (auto& i : this->textures)
 	{
@@ -159,21 +160,27 @@ void Game::run()
 		if (player->getCurrentHp() > 0 && nextStage == false)
 		{
 			this->update();
+			this->render();
 		}
-		this->render();
 	}
 }
 
 void Game::playerDecision()
 {	
 	countMonster = 0;
-	countMonsterMax += 10;
+	countMonsterMax += 1;
 	countMonsterMax += LEVEL;
+	player->setHpMax(20 + LEVEL * 0.25);
+
+	std::cout << "Max monster: " << countMonsterMax << '\n';
 	cleanUpState();
 }
 
 void Game::cleanUpState()
 {
+	//std::cout << weapons.size()<<'\n';
+	//std::cout << enemies.size()<<'\n';
+
 	//Delete weapons
 	for (auto* i : this->weapons)
 	{
@@ -184,6 +191,10 @@ void Game::cleanUpState()
 	for (auto* enemy : this->enemies) {
 		delete enemy;
 	}
+
+	weapons.clear();
+	enemies.clear();
+
 }
 
 void Game::pollEvent()
@@ -200,6 +211,7 @@ void Game::pollEvent()
 
 			if (event.Event::KeyPressed) {
 				if (event.Event::key.code == sf::Keyboard::F) {
+					playerDecision();
 					LEVEL++;
 					nextStage = false;
 				}
@@ -359,6 +371,7 @@ void Game::choosingSkill()
 void Game::updateWeapon()
 {
 	// Duyệt ngược để xóa an toàn
+	if(weapons.size() != 0)
 	for (int i = this->weapons.size() - 1; i >= 0; --i)
 	{
 		Weapon* weapon = this->weapons[i];
@@ -465,11 +478,12 @@ void Game::updateCombat() {
 		{
 			if (this->weapons[i]->getBound().intersects(this->enemies[j]->getBounds())) {
 				//subtract enemy health
-				if (enemies[j]->getCurrentHp() - this->weapons[i]->getDamage() <=0) {
+				if (enemies[j]->getCurrentHp() - this->weapons[i]->getDamage() <= 0) {
 					this->enemies[j]->setCurrentHp(0);
 				}
 				else
-				this->enemies[j]->setCurrentHp(enemies[j]->getCurrentHp() - this->weapons[i]->getDamage());
+					this->enemies[j]->setCurrentHp(
+						enemies[j]->getCurrentHp() - this->weapons[i]->getDamage());
 
 				//delete enemy when collison happen and hp of enemy reach 0
 				if (this->enemies[j]->getCurrentHp() <= 0) {
@@ -481,8 +495,6 @@ void Game::updateCombat() {
 					countMonster++;
 					std::cout << countMonster << '\n';
 				}
-				//plus the counter of the total monster killed
-
 
 				//delete weapon when collison happen 
 				delete this->weapons[i];
@@ -491,7 +503,7 @@ void Game::updateCombat() {
 
 				if (countMonster == countMonsterMax) {
 					nextStage = true;
-					playerDecision();
+					//playerDecision();
 					break;
 				}
 
@@ -499,16 +511,14 @@ void Game::updateCombat() {
 			}
 		}
 
-		// Skip further processing of this weapon if it was removed
 		if (weaponRemoved) {
 			continue;
 		}
-		if (nextStage == true) {
-			break;
-		}
+
 	}
 
 	// Player-Enemy Collisions
+	if (nextStage == false)
 	for (int j = this->enemies.size() - 1; j >= 0; --j) {
 		if (this->player->globalBound().intersects(this->enemies[j]->getBounds())) {
 			this->player->setCurrentHp(this->player->getCurrentHp() - (this->enemies[j]->getDamage()));
@@ -516,7 +526,6 @@ void Game::updateCombat() {
 			//remove enemy when collison happen
 			delete this->enemies[j];
 			this->enemies.erase(enemies.begin() + j);
-
 			if (this->player->getCurrentHp() <= 0) {
 				this->player->setCurrentHp(0);
 				std::cout << "Player is dead\n";
@@ -527,6 +536,7 @@ void Game::updateCombat() {
 			break;
 		}
 	}
+
 }
 
 void Game::updateEnemies() {
@@ -537,6 +547,7 @@ void Game::updateEnemies() {
 		spawnTimer.restart();
 	}
 
+	if(enemies.size() != 0)
 	for (int i = this->enemies.size() - 1; i >= 0; --i)
 	{
 		this->enemies[i]->update();

@@ -91,5 +91,6 @@ void Enemy::render(sf::RenderTarget* target) {
 Enemy::~Enemy()
 {
     delete texture;
+
 }
 

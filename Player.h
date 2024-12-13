@@ -48,7 +48,7 @@ public:
 	void render(sf::RenderTarget &);
 
 
-	void setHp(int& Hp);
+	void setHpMax(const int& Hp);
 	//void setDamage(int& Damage);
 
 	int getCurrentHp();
