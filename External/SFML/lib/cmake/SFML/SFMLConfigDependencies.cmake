@@ -16,10 +16,19 @@ if(SFML_STATIC_LIBRARIES)
         endif()
     elseif(${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
         set(FIND_SFML_OS_FREEBSD 1)
+<<<<<<< HEAD
+    elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+        if (DEFINED IOS)
+            set(FIND_SFML_OS_IOS 1)
+        else()
+            set(FIND_SFML_OS_MACOSX 1)
+        endif()
+=======
     elseif(${CMAKE_SYSTEM_NAME} MATCHES "iOS")
         set(FIND_SFML_OS_IOS 1)
     elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         set(FIND_SFML_OS_MACOSX 1)
+>>>>>>> 838a10b128dd9e96943412729a3a7924ae3f18a7
     endif()
 
     # start with an empty list
