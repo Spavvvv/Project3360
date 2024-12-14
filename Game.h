@@ -3,7 +3,8 @@
 #include<vector>
 #include<map>
 #include <sstream>
-
+#include <iostream>
+#include <string>
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
@@ -20,9 +21,6 @@
 #include"Enemy.h"
 
 
-enum level{LEVEL1, LEVEL2, LEVEL3, LEVEL4, LEVEL5, 
-	LEVEL6, LEVEL7, LEVEL8, LEVEL9, LEVEL10,
-};
 
 class Game
 {
@@ -49,6 +47,7 @@ private:
 	sf::Text text;
 	sf::Text endGameText;
 	sf::Text nextStageText;
+	sf::Text completeGameText;
 	bool endGame;
 
 	//stuff for GUI ingame
@@ -61,6 +60,7 @@ private:
 	bool nextStage;
 
 	int LEVEL;
+	int LEVELMAX;
 
 public:
 	int sk1 = 0;
@@ -82,9 +82,11 @@ public:
 	void choosingSkill();
 	void updateWeapon();
 	void update();
-	void run();
+	int run();
 	void playerDecision();
 	void cleanUpState();
+	void CompleteGame();
+	void deadAnimiation();
 
 
 	void spawnEnemy();           // Method to spawn a new enemy

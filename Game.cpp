@@ -1,5 +1,4 @@
 ﻿#include "Game.h"
-#include<iostream>
 
 void Game::initWindow()
 {
@@ -102,10 +101,20 @@ void Game::initText()
 	nextStageText.setFont(font);
 	nextStageText.setCharacterSize(50);
 	nextStageText.setFillColor(sf::Color::Red);
-	nextStageText.setString("Done Stage" + LEVEL);
+	nextStageText.setString("Done Stage " + std::to_string(LEVEL));
 	nextStageText.setPosition(
 		window->getSize().x / 2.f - nextStageText.getGlobalBounds().width / 2.f,
 		window->getSize().y / 2.f - nextStageText.getGlobalBounds().height / 2.f
+	);
+
+	
+	completeGameText.setFont(font);
+	completeGameText.setCharacterSize(50);
+	completeGameText.setFillColor(sf::Color::Red);
+	completeGameText.setString("Congrat, you survival!");
+	completeGameText.setPosition(
+		window->getSize().x / 2.f - completeGameText.getGlobalBounds().width / 2.f,
+		window->getSize().y / 2.f - completeGameText.getGlobalBounds().height / 2.f
 	);
 }
 
@@ -147,11 +156,12 @@ void Game::initSystem()
 	nextStage = false;
 	countMonster = 0;
 	countMonsterMax = 1;
-	LEVEL = LEVEL1;
+	LEVEL = 1;
+	LEVELMAX = 10;
 }
 
 //Functions
-void Game::run()
+int Game::run()
 {
 	while (this->window->isOpen())
 	{
@@ -163,17 +173,58 @@ void Game::run()
 			this->render();
 		}
 	}
+	/*if(window->isOpen() == false)
+	return 0;*/
+
+	return 0;
 }
 
 void Game::playerDecision()
 {	
-	countMonster = 0;
-	countMonsterMax += 1;
-	countMonsterMax += LEVEL;
-	player->setHpMax(20 + LEVEL * 0.25);
 
-	std::cout << "Max monster: " << countMonsterMax << '\n';
+	window->clear();
+	window->draw(nextStageText);
+	window->display();
+
 	cleanUpState();
+
+	while (nextStage) {
+
+		if (LEVEL < LEVELMAX)
+		{
+			while (this->window->pollEvent(event))
+			{
+				if (event.Event::KeyPressed) {
+					if (event.Event::key.code == sf::Keyboard::F) {
+						countMonster = 0;
+						countMonsterMax += 1;
+						countMonsterMax += LEVEL;
+						player->setHpMax(20 + LEVEL * 0.25);
+						std::cout << "Max monster: " << countMonsterMax << '\n';
+
+						LEVEL++;
+						nextStage = false;
+					}
+					else {
+						//window->close();
+					}
+				}
+
+				if (event.Event::type == sf::Event::Closed)
+					this->window->close();
+				if (event.Event::KeyPressed && event.Event::key.code == sf::Keyboard::Escape)
+					this->window->close();
+			}
+		}
+
+		else {
+			break;
+		}
+	}
+
+	if (LEVEL == LEVELMAX) {
+		CompleteGame();	
+	}
 }
 
 void Game::cleanUpState()
@@ -197,43 +248,59 @@ void Game::cleanUpState()
 
 }
 
-void Game::pollEvent()
+void Game::CompleteGame()
 {
-
-	while (nextStage) {
-
+	while(true)
+	{
 		window->clear();
-		window->draw(nextStageText);
+		window->draw(completeGameText);
 		window->display();
 
-		while (this->window->pollEvent(event))
-		{
+		sf::Event completeEvent;
 
-			if (event.Event::KeyPressed) {
-				if (event.Event::key.code == sf::Keyboard::F) {
-					playerDecision();
-					LEVEL++;
-					nextStage = false;
-				}
-				else {
-					//window->close();
-				}
+		while (this->window->pollEvent(completeEvent))
+		{
+			if (completeEvent.Event::KeyPressed) {
+				this->window->close();
+				break;
 			}
 
-			if (event.Event::type == sf::Event::Closed)
+			if (completeEvent.Event::type == sf::Event::Closed)
+			{
 				this->window->close();
-			if (event.Event::KeyPressed && event.Event::key.code == sf::Keyboard::Escape)
+				break;
+			}
+			if (completeEvent.Event::KeyPressed && completeEvent.Event::key.code == sf::Keyboard::Escape)
+			{
 				this->window->close();
+				break;
+			}
 		}
+		
+		if (window->isOpen() == false)
+			break;
 	}
+}
+
+void Game::deadAnimiation()
+{
+
+}
+
+void Game::pollEvent()
+{
 
 	sf::Event e;
 	while (this->window->pollEvent(e))
 	{
 		if (e.Event::type == sf::Event::Closed)
+		{
 			this->window->close();
+		}
 		if (e.Event::KeyPressed && e.Event::key.code == sf::Keyboard::Escape)
+		{
 			this->window->close();
+		}
 	}
 }
 
@@ -307,7 +374,7 @@ void Game::updateMovement()
 				this->player->getPosition().x,
 				this->player->getPosition().y,
 				10.f + LEVEL * 0.5,
-				20 + LEVEL * 0.1f
+				20 + LEVEL * 10
 			)
 		);
 
@@ -322,34 +389,34 @@ void Game::updateMovement()
 		this->weapons.push_back(
 			new suriken(
 				this->textures["SURIKEN"],
-				1.f + LEVEL * 0.1f,
-				0.f + LEVEL * 0.1f,
+				1.f,
+				0.f,
 				this->player->getPosition().x,
 				this->player->getPosition().y,
 				10.f + LEVEL,
-				20 + LEVEL * 0.3f
+				20 + LEVEL * 0.3
 			)
 		);
 		this->weapons.push_back(
 			new suriken(
 				this->textures["SURIKEN"],
-				1.f + LEVEL * 0.1f,
-				0.f + LEVEL * 0.1f,
+				1.f,
+				0.f,
 				this->player->getPosition().x,
 				this->player->getPosition().y - 30.f,
 				9.f + LEVEL,
-				20 + LEVEL * 0.3f
+				20 + LEVEL * 0.3
 			)
 		); 
 		this->weapons.push_back(
 			new suriken(
 				this->textures["SURIKEN"],
-				1.f + LEVEL * 0.1f,
-				0.f + LEVEL * 0.1f,
+				1.f,
+				0.f,
 				this->player->getPosition().x,
 				this->player->getPosition().y + 30.f,
 				9.f + LEVEL,
-				20 + LEVEL * 0.3f
+				20 + LEVEL * 0.3
 			)
 		);
 	}
@@ -503,7 +570,6 @@ void Game::updateCombat() {
 
 				if (countMonster == countMonsterMax) {
 					nextStage = true;
-					//playerDecision();
 					break;
 				}
 
@@ -511,10 +577,18 @@ void Game::updateCombat() {
 			}
 		}
 
+		if (nextStage) {
+			break;
+		}
+
 		if (weaponRemoved) {
 			continue;
 		}
 
+	}
+	
+	if (nextStage) {
+		playerDecision();
 	}
 
 	// Player-Enemy Collisions
@@ -522,13 +596,14 @@ void Game::updateCombat() {
 	for (int j = this->enemies.size() - 1; j >= 0; --j) {
 		if (this->player->globalBound().intersects(this->enemies[j]->getBounds())) {
 			this->player->setCurrentHp(this->player->getCurrentHp() - (this->enemies[j]->getDamage()));
-			std::cout << "Player gets hit: -" << this->enemies[j]->getDamage() << "damage \n";
+			std::cout << "Player gets hit: - " << this->enemies[j]->getDamage() << "damage \n";
 			//remove enemy when collison happen
 			delete this->enemies[j];
 			this->enemies.erase(enemies.begin() + j);
 			if (this->player->getCurrentHp() <= 0) {
 				this->player->setCurrentHp(0);
 				std::cout << "Player is dead\n";
+				deadAnimiation();
 				endGame = true;
 			}
 		}
@@ -558,6 +633,8 @@ void Game::updateEnemies() {
 			this->enemies[i]->getBounds().left + this->enemies[i]->getBounds().width < 0.f ||
 			this->enemies[i]->getBounds().left > this->window->getSize().x)
 		{
+			player->setCurrentHp(player->getCurrentHp() - enemies[i]->getDamage());
+			std::cout << "Enemy ran !" << '\n';
 			delete this->enemies[i];
 			this->enemies.erase(this->enemies.begin() + i);
 		}
