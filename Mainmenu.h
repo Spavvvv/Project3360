@@ -6,11 +6,16 @@
 #include<string>
 #include <vector>
 #include <ctime>
+<<<<<<< HEAD
 
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 
+=======
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
+>>>>>>> c7575d82ee2923d411cb421c4d86c1692109cefb
 #include <iostream>
 using namespace std;
 using namespace sf;

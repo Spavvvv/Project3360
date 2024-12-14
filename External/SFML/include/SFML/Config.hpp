@@ -31,7 +31,11 @@
 ////////////////////////////////////////////////////////////
 #define SFML_VERSION_MAJOR 2
 #define SFML_VERSION_MINOR 6
+<<<<<<< HEAD
+#define SFML_VERSION_PATCH 1
+=======
 #define SFML_VERSION_PATCH 2
+>>>>>>> 838a10b128dd9e96943412729a3a7924ae3f18a7
 
 
 ////////////////////////////////////////////////////////////
