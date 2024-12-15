@@ -1,40 +1,24 @@
-<<<<<<< HEAD
-﻿#include<SFML/Graphics.hpp>
-#include"Mainmenu.h"
-#include"User.h"
-#include"playMenu.h"
-
-using namespace sf;
-using namespace std;
-
-
-string filename = "user_data.txt";
-vector<User> users = User::loadUserData(filename);
-
-=======
 #include<SFML/Graphics.hpp>
+
+
 #include"Mainmenu.h"
 #include"User.h"
 #include"playMenu.h"
+
 using namespace sf;
 using namespace std;
+
 string filename = "user_data.txt";
 vector<User> users = User::loadUserData(filename);
->>>>>>> c7575d82ee2923d411cb421c4d86c1692109cefb
+
 int choice;
 int pagenum = 1000;
 bool loggedIn = false;
 
 int main() {
 	string name;
-<<<<<<< HEAD
 	RenderWindow MENU(VideoMode(1400, 1000), string("Main Menu"), sf::Style::Close | sf::Style::Titlebar);
 	Mainmenu mainMenu(1400, 1000);
-
-=======
-	RenderWindow MENU(VideoMode(1920, 1080), "Main Menu");
-	Mainmenu mainMenu(1920, 1080);
->>>>>>> c7575d82ee2923d411cb421c4d86c1692109cefb
 	while (true) {
 		if (pagenum == 1000) {
 			while (MENU.isOpen()) {
@@ -74,14 +58,13 @@ int main() {
 				}
 				mainMenu.draw(MENU);
 				MENU.display();
-<<<<<<< HEAD
+
 
 				if (event.Event::type == sf::Event::Closed)
 					MENU.close();
 				if (event.Event::KeyPressed && event.Event::key.code == sf::Keyboard::Escape)
 					MENU.close();
-=======
->>>>>>> c7575d82ee2923d411cb421c4d86c1692109cefb
+
 			}
 			if (pagenum == -1) {
 				MENU.close();
@@ -98,7 +81,7 @@ int main() {
 				}
 			}
 			if (pagenum == 1) {
-<<<<<<< HEAD
+
 				if (User::registerUser(MENU, users)) {
 					pagenum = 10; // Đăng ký thành công, chuyển sang trang tiếp theo
 				}
@@ -114,7 +97,7 @@ int main() {
 			}
 			if (pagenum == 3) {
 				pagenum = 1000;
-=======
+
 				User::registerUser(MENU, users);
 				pagenum == 10;
 			}
@@ -125,8 +108,6 @@ int main() {
 			}
 			if (pagenum == 3) {
 				pagenum == 1000;
->>>>>>> c7575d82ee2923d411cb421c4d86c1692109cefb
-
 			}
 		}
 		if (pagenum == 10) {
@@ -134,12 +115,6 @@ int main() {
 			menu.run();
 			pagenum = 1000;
 		}
-<<<<<<< HEAD
-
-
 	}
 	return 0;
-=======
-	}
->>>>>>> c7575d82ee2923d411cb421c4d86c1692109cefb
 }

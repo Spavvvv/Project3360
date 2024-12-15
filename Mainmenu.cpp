@@ -1,14 +1,10 @@
 ﻿#include "Mainmenu.h"
-<<<<<<< HEAD
+
+#include <SFML/Graphics.hpp>
 
 using namespace std;
 using namespace sf;
 
-=======
-#include<SFML/Graphics.hpp>
-using namespace std;
-using namespace sf;
->>>>>>> c7575d82ee2923d411cb421c4d86c1692109cefb
 Mainmenu::Mainmenu(float width, float height) {
 	font.loadFromFile("assets/Fonts/Freedom-10eM.ttf");
 
@@ -16,21 +12,14 @@ Mainmenu::Mainmenu(float width, float height) {
 	mainMenu[0].setFillColor(Color::White);
 	mainMenu[0].setString("Login");
 	mainMenu[0].setCharacterSize(70);
-<<<<<<< HEAD
 	mainMenu[0].setPosition(sf::Vector2f(400.f,200.f));
-=======
-	mainMenu[0].setPosition(Vector2f(400, 200));
->>>>>>> c7575d82ee2923d411cb421c4d86c1692109cefb
+
 
 	mainMenu[1].setFont(font);
 	mainMenu[1].setFillColor(Color::White);
 	mainMenu[1].setString("Register");
 	mainMenu[1].setCharacterSize(70);
-<<<<<<< HEAD
 	mainMenu[1].setPosition(sf::Vector2f(400.f, 300.f));
-=======
-	mainMenu[1].setPosition(Vector2f(400, 300));
->>>>>>> c7575d82ee2923d411cb421c4d86c1692109cefb
 
 	mainMenu[2].setFont(font);
 	mainMenu[2].setFillColor(Color::White);

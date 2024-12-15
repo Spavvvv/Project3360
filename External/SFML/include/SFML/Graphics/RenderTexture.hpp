@@ -72,21 +72,15 @@ public:
     /// Before calling this function, the render-texture is in
     /// an invalid state, thus it is mandatory to call it before
     /// doing anything with the render-texture.
-<<<<<<< HEAD
-=======
     ///
->>>>>>> 838a10b128dd9e96943412729a3a7924ae3f18a7
     /// The last parameter, \a depthBuffer, is useful if you want
     /// to use the render-texture for 3D OpenGL rendering that requires
     /// a depth buffer. Otherwise it is unnecessary, and you should
     /// leave this parameter to false (which is its default value).
     ///
-<<<<<<< HEAD
-=======
     /// After creation, the contents of the render-texture are undefined.
     /// Call `RenderTexture::clear` first to ensure a single color fill.
     ///
->>>>>>> 838a10b128dd9e96943412729a3a7924ae3f18a7
     /// \param width       Width of the render-texture
     /// \param height      Height of the render-texture
     /// \param depthBuffer Do you want this render-texture to have a depth buffer?
@@ -104,21 +98,15 @@ public:
     /// Before calling this function, the render-texture is in
     /// an invalid state, thus it is mandatory to call it before
     /// doing anything with the render-texture.
-<<<<<<< HEAD
-=======
     ///
->>>>>>> 838a10b128dd9e96943412729a3a7924ae3f18a7
     /// The last parameter, \a settings, is useful if you want to enable
     /// multi-sampling or use the render-texture for OpenGL rendering that
     /// requires a depth or stencil buffer. Otherwise it is unnecessary, and
     /// you should leave this parameter at its default value.
     ///
-<<<<<<< HEAD
-=======
     /// After creation, the contents of the render-texture are undefined.
     /// Call `RenderTexture::clear` first to ensure a single color fill.
     ///
->>>>>>> 838a10b128dd9e96943412729a3a7924ae3f18a7
     /// \param width    Width of the render-texture
     /// \param height   Height of the render-texture
     /// \param settings Additional settings for the underlying OpenGL texture and context

@@ -1,12 +1,14 @@
-﻿#include "User.h"
+﻿#pragma once
+
+#include "User.h"
 #include <iostream>
 #include <fstream>
 #include <algorithm>
-#include <SFML/Graphics.hpp>
 #include <string>
 #include <vector>
-#include <iostream>
-#pragma once
+
+#include <SFML/Graphics.hpp>
+
 using namespace sf;
 using namespace std;
 
@@ -103,22 +105,14 @@ void User::displayUserIDsByScore(RenderWindow& window, const vector<User>& users
 bool User::login(const string& inputName, const string& inputPassword) const {
     return name == inputName && password == inputPassword;
 }
-<<<<<<< HEAD
 bool User::registerUser(RenderWindow& window, vector<User>& users) {
-=======
-void User::registerUser(RenderWindow& window, vector<User>& users) {
->>>>>>> c7575d82ee2923d411cb421c4d86c1692109cefb
     string name, password, tempInput;
     int id = 0;
 
     Font font;
     if (!font.loadFromFile("assets/Fonts/Freedom-10eM.ttf")) {
         cerr << "Font load failed!" << endl;
-<<<<<<< HEAD
         return false; 
-=======
-        return;
->>>>>>> c7575d82ee2923d411cb421c4d86c1692109cefb
     }
 
     Text prompt("Register", font, 50);
@@ -132,35 +126,18 @@ void User::registerUser(RenderWindow& window, vector<User>& users) {
     input.setFillColor(Color::White);
 
     int field = 0;
-<<<<<<< HEAD
-=======
 
->>>>>>> c7575d82ee2923d411cb421c4d86c1692109cefb
     while (window.isOpen()) {
         Event event;
         while (window.pollEvent(event)) {
             if (event.type == Event::Closed) {
                 window.close();
-<<<<<<< HEAD
                 return false; 
-=======
-                return;
->>>>>>> c7575d82ee2923d411cb421c4d86c1692109cefb
+
             }
 
             if (event.type == Event::TextEntered) {
                 if (event.text.unicode == '\b' && !tempInput.empty()) {
-<<<<<<< HEAD
-                    tempInput.pop_back();
-                }
-                else if (event.text.unicode < 128 && event.text.unicode != '\r' && event.text.unicode != 27) {
-                    tempInput += static_cast<char>(event.text.unicode);
-                }
-                else if (event.text.unicode == '\r') {
-                    if (field == 0) {
-                        try {
-                            id = stoi(tempInput);
-=======
                     tempInput.pop_back(); 
                 }
                 else if (event.text.unicode < 128 && event.text.unicode != '\r' && event.text.unicode != 27) {
@@ -170,26 +147,17 @@ void User::registerUser(RenderWindow& window, vector<User>& users) {
                     if (field == 0) {
                         try {
                             id = stoi(tempInput); 
->>>>>>> c7575d82ee2923d411cb421c4d86c1692109cefb
                             bool idExists = any_of(users.begin(), users.end(), [&](const User& user) {
                                 return user.id == id;
                                 });
 
                             if (idExists) {
-<<<<<<< HEAD
                                 prompt.setString("ID exists. Enter a new ID:");
-=======
-                                prompt.setString("ID exists. Enter a new ID :");
->>>>>>> c7575d82ee2923d411cb421c4d86c1692109cefb
                                 tempInput.clear();
                             }
                             else {
                                 field = 1;
-<<<<<<< HEAD
-                                prompt.setString("Enter Password:");
-=======
                                 prompt.setString("Enter Password :");
->>>>>>> c7575d82ee2923d411cb421c4d86c1692109cefb
                                 tempInput.clear();
                             }
                         }
@@ -200,11 +168,8 @@ void User::registerUser(RenderWindow& window, vector<User>& users) {
                     }
                     else if (field == 1) {
                         try {
-<<<<<<< HEAD
-                            stoi(tempInput);
-=======
+
                             stoi(tempInput); 
->>>>>>> c7575d82ee2923d411cb421c4d86c1692109cefb
                             password = tempInput;
                             field = 2;
                             prompt.setString("Enter Name:");
@@ -215,7 +180,6 @@ void User::registerUser(RenderWindow& window, vector<User>& users) {
                             tempInput.clear();
                         }
                     }
-<<<<<<< HEAD
                     else if (field == 2) {
                         name = tempInput;
                         users.emplace_back(id, name, password, 0);
@@ -227,19 +191,6 @@ void User::registerUser(RenderWindow& window, vector<User>& users) {
                 }
                 else if (event.text.unicode == 27) {
                     return false;
-=======
-                    else if (field == 2) { 
-                        name = tempInput;
-                        users.emplace_back(id, name, password, 0); 
-                        saveUserData(users, "user_data.txt");
-                        prompt.setString("Registration successful!");
-                        tempInput.clear();
-                        return; 
-                    }
-                }
-                else if (event.text.unicode == 27) { 
-                    return;
->>>>>>> c7575d82ee2923d411cb421c4d86c1692109cefb
                 }
             }
         }
@@ -249,16 +200,9 @@ void User::registerUser(RenderWindow& window, vector<User>& users) {
         window.clear();
         window.draw(prompt);
         window.draw(input);
-<<<<<<< HEAD
         if (field == 0) window.draw(enter);
         window.display();
     }
-
-    return false; 
-=======
-        window.display();
-    }
->>>>>>> c7575d82ee2923d411cb421c4d86c1692109cefb
 }
 
 

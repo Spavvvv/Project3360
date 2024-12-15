@@ -1,2 +1,15 @@
 ﻿  Main.cpp
+C:\Users\tiend\source\repos\duy123\Main.cpp(102,13): warning C4553: '==': result of expression not used; did you intend '='?
+C:\Users\tiend\source\repos\duy123\Main.cpp(107,13): warning C4553: '==': result of expression not used; did you intend '='?
+C:\Users\tiend\source\repos\duy123\Main.cpp(110,13): warning C4553: '==': result of expression not used; did you intend '='?
+  Mainmenu.cpp
+  playMenu.cpp
+C:\Users\tiend\source\repos\duy123\playMenu.cpp(21,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tiend\source\repos\duy123\playMenu.cpp(37,48): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\tiend\source\repos\duy123\playMenu.cpp(37,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  User.cpp
+C:\Users\tiend\source\repos\duy123\User.cpp(172,33): warning C4834: discarding return value of function with [[nodiscard]] attribute
+C:\Users\tiend\source\repos\duy123\User.cpp(258,33): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  Generating Code...
+C:\Users\tiend\source\repos\duy123\User.cpp(206,1): warning C4715: 'User::registerUser': not all control paths return a value
   CS3360Remake.vcxproj -> C:\Users\tiend\source\repos\duy123\x64\Debug\CS3360Remake.exe

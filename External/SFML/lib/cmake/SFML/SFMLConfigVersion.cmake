@@ -9,31 +9,19 @@
 # The variable CVF_VERSION must be set before calling configure_file().
 
 
-<<<<<<< HEAD
-set(PACKAGE_VERSION "2.6.1")
-=======
 set(PACKAGE_VERSION "2.6.2")
->>>>>>> 838a10b128dd9e96943412729a3a7924ae3f18a7
 
 if(PACKAGE_VERSION VERSION_LESS PACKAGE_FIND_VERSION)
   set(PACKAGE_VERSION_COMPATIBLE FALSE)
 else()
 
-<<<<<<< HEAD
-  if("2.6.1" MATCHES "^([0-9]+)\\.")
-=======
   if("2.6.2" MATCHES "^([0-9]+)\\.")
->>>>>>> 838a10b128dd9e96943412729a3a7924ae3f18a7
     set(CVF_VERSION_MAJOR "${CMAKE_MATCH_1}")
     if(NOT CVF_VERSION_MAJOR VERSION_EQUAL 0)
       string(REGEX REPLACE "^0+" "" CVF_VERSION_MAJOR "${CVF_VERSION_MAJOR}")
     endif()
   else()
-<<<<<<< HEAD
-    set(CVF_VERSION_MAJOR "2.6.1")
-=======
     set(CVF_VERSION_MAJOR "2.6.2")
->>>>>>> 838a10b128dd9e96943412729a3a7924ae3f18a7
   endif()
 
   if(PACKAGE_FIND_VERSION_RANGE)

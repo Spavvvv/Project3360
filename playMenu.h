@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 #pragma once
-=======
->>>>>>> c7575d82ee2923d411cb421c4d86c1692109cefb
 
 #include <iostream>
 #include <fstream>
@@ -10,11 +7,9 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <vector>
-<<<<<<< HEAD
 
 
-=======
->>>>>>> c7575d82ee2923d411cb421c4d86c1692109cefb
+
 using namespace sf;
 using namespace std;
 class playMenu {

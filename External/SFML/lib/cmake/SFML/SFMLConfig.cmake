@@ -144,9 +144,5 @@ if (NOT SFML_FOUND)
 endif()
 
 if (SFML_FOUND AND NOT SFML_FIND_QUIETLY)
-<<<<<<< HEAD
-    message(STATUS "Found SFML 2.6.1 in ${CMAKE_CURRENT_LIST_DIR}")
-=======
     message(STATUS "Found SFML 2.6.2 in ${CMAKE_CURRENT_LIST_DIR}")
->>>>>>> 838a10b128dd9e96943412729a3a7924ae3f18a7
 endif()
