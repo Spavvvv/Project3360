@@ -6,7 +6,7 @@ using namespace std;
 using namespace sf;
 
 Mainmenu::Mainmenu(float width, float height) {
-	font.loadFromFile("assets/Fonts/Freedom-10eM.ttf");
+	font.loadFromFile("assets/Fonts/KGNeatlyPrinted.ttf");
 
 	mainMenu[0].setFont(font);
 	mainMenu[0].setFillColor(Color::White);

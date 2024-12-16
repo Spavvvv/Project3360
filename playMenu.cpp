@@ -5,7 +5,7 @@ playMenu::playMenu(RenderWindow& window)
     selectedSkills(3, -1),
     currentRow(0),
     currentCol(0) {
-    if (!font.loadFromFile("assets/Fonts/Freedom-10eM.ttf")) {
+    if (!font.loadFromFile("assets/Fonts/KGNeatlyPrinted.ttf")) {
         cerr << "Font load failed!" <<endl; // mấy cái font load failed này chỉ để test có lỗi thôi
     }
 
@@ -60,6 +60,7 @@ void playMenu::handleEvents() {
             if (event.key.code == Keyboard::Enter) {
                 if (selectedSkills[currentRow] == -1) {
                     selectedSkills[currentRow] = currentCol;
+                    // chỗ này là nhét biến của Skill vào, tức là sau khi bấm Enter thì skill được giữ ở đây
                     if (currentRow < 2) currentRow++;
                 }
             }

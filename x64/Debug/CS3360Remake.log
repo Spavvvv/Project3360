@@ -1,9 +1,4 @@
-﻿  Main.cpp
-C:\Users\Duy\source\repos\CS3360Remake\Main.cpp(73,13): warning C4553: '==': result of expression not used; did you intend '='?
-C:\Users\Duy\source\repos\CS3360Remake\Main.cpp(78,13): warning C4553: '==': result of expression not used; did you intend '='?
-C:\Users\Duy\source\repos\CS3360Remake\Main.cpp(81,13): warning C4553: '==': result of expression not used; did you intend '='?
-  User.cpp
-C:\Users\Duy\source\repos\CS3360Remake\User.cpp(168,33): warning C4834: discarding return value of function with [[nodiscard]] attribute
-C:\Users\Duy\source\repos\CS3360Remake\User.cpp(253,33): warning C4834: discarding return value of function with [[nodiscard]] attribute
+﻿  Event.cpp
+  main.cpp
   Generating Code...
-  CS3360Remake.vcxproj -> C:\Users\Duy\source\repos\CS3360Remake\x64\Debug\CS3360Remake.exe
+  CS3360Remake.vcxproj -> D:\New folder (6)\Project3360\x64\Debug\CS3360Remake.exe

@@ -56,7 +56,7 @@ void User::displayUserIDsByScore(RenderWindow& window, const vector<User>& users
         });
 
     Font font;
-    if (!font.loadFromFile("assets/Fonts/Freedom-10eM.ttf")) {
+    if (!font.loadFromFile("assets/Fonts/KGNeatlyPrinted.ttf")) {
         cout << "Font load failed!" << endl;
         return;
     }
@@ -71,10 +71,10 @@ void User::displayUserIDsByScore(RenderWindow& window, const vector<User>& users
     for (const auto& user : sortedUsers) {
         Text userText;
         userText.setFont(font);
-        userText.setString("ID: " + to_string(user.id) + " | Name: " + user.name + " | Score: " + to_string(user.score));
+        userText.setString("ID: " + to_string(user.id) + "  Name: " + user.name + "  Score: " + to_string(user.score));
         userText.setCharacterSize(30);
         userText.setPosition(50, yOffset);
-        userText.setFillColor(Color::White);
+        userText.setFillColor(Color::Cyan);
         userTexts.push_back(userText);
 
         yOffset += 40;
@@ -110,7 +110,7 @@ bool User::registerUser(RenderWindow& window, vector<User>& users) {
     int id = 0;
 
     Font font;
-    if (!font.loadFromFile("assets/Fonts/Freedom-10eM.ttf")) {
+    if (!font.loadFromFile("assets/Fonts/KGNeatlyPrinted.ttf")) {
         cerr << "Font load failed!" << endl;
         return false; 
     }
@@ -119,7 +119,7 @@ bool User::registerUser(RenderWindow& window, vector<User>& users) {
     prompt.setPosition(50, 50);
     prompt.setFillColor(Color::Cyan);
     Text enter("Enter ID: ", font, 50);
-    enter.setPosition(50, 70);
+    enter.setPosition(50, 100);
     enter.setFillColor(Color::Cyan);
     Text input("", font, 50);
     input.setPosition(50, 150);
@@ -212,7 +212,7 @@ bool User::loginUser(RenderWindow& window, vector<User>& users) {
     int inputID = 0, field = 0;
 
     Font font;
-    if (!font.loadFromFile("assets/Fonts/Freedom-10eM.ttf")) {
+    if (!font.loadFromFile("assets/Fonts/KGNeatlyPrinted.ttf")) {
         cerr << "Font load failed!" << endl;
         return false;
     }
