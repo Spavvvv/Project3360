@@ -135,20 +135,28 @@
   <ItemGroup>
     <ClCompile Include="bigSword.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Event.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="katana.cpp" />
+    <ClCompile Include="Mainmenu.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="playMenu.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="suriken.cpp" />
+    <ClCompile Include="User.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bigSword.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Event.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="katana.h" />
+    <ClInclude Include="Mainmenu.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="playMenu.h" />
     <ClInclude Include="suriken.h" />
+    <ClInclude Include="User.h" />
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

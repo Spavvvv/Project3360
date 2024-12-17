@@ -39,6 +39,7 @@ void Game::initPlayer()
 //Con/Des
 Game::Game()
 {
+	initMenu();
 	this->initWindow();
 	this->initTexture();
 	this->initPlayer();
@@ -158,6 +159,13 @@ void Game::initSystem()
 	countMonsterMax = 1;
 	LEVEL = 1;
 	LEVELMAX = 10;
+}
+
+void Game::initMenu()
+{
+	EventManager eventManager;
+	eventManager.run();
+	//delete eventManager;
 }
 
 //Functions

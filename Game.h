@@ -9,8 +9,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
 
 
 #include"Player.h"
@@ -19,6 +17,12 @@
 #include"suriken.h"
 #include"bigSword.h"
 #include"Enemy.h"
+
+//Include for mainMenu and playingMenu, this is a mess so i dont want to touch it
+#include "User.h"
+#include "Mainmenu.h"
+#include "playMenu.h"
+#include "Event.h"
 
 
 
@@ -31,8 +35,8 @@ private:
 	std::map<sf::String, sf::Texture*> textures;
 	std::vector<Weapon*> weapons;
 	Player* player;
+
 	// game logic
-	
 	void initWindow();
 	void initPlayer();
 	void initTexture();
@@ -73,7 +77,7 @@ public:
 	void updateGUI();
 	void renderGUI();
 	void initSystem();
-
+	void initMenu();
 
 	void pollEvent();
 	void render();
