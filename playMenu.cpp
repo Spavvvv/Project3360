@@ -3,6 +3,7 @@
 playMenu::playMenu(RenderWindow& window)
     : window(window),
     selectedSkills(3, -1),
+    selectedSS(3,sf::String("")),
     currentRow(0),
     currentCol(0) {
     if (!font.loadFromFile("assets/Fonts/KGNeatlyPrinted.ttf")) {
@@ -15,21 +16,21 @@ playMenu::playMenu(RenderWindow& window)
 
 void playMenu::initTextures()
 {
-    std::cout << "Called!" << '\n';
+    //std::cout << "Called!" << '\n';
 
-    if (!textures["SWORD"].loadFromFile("texture\\png\\weapon\\sword.png")) {
+    if (!texture["SWORD"].loadFromFile("texture\\png\\weapon\\25.png")) {
         std::cerr << "Error loading texture: SWORD" << std::endl;
     }
 
-    if (!textures["KATANA"].loadFromFile("texture\\png\\weapon\\25.png")) {
+    if (!texture["KATANA"].loadFromFile("texture\\png\\weapon\\sword.png")) {
         std::cerr << "Error loading texture: KATANA" << std::endl;
     }
 
-    if (!textures["SURIKEN"].loadFromFile("texture\\png\\weapon\\40.png")) {
+    if (!texture["SURIKEN"].loadFromFile("texture\\png\\weapon\\40.png")) {
         std::cerr << "Error loading texture: SURIKEN" << std::endl;
     }
 
-    std::cout << textures.size() << '\n';
+    std::cout << texture.size() << '\n';
 }
 
 void playMenu::initializeBoxes() {
@@ -57,8 +58,8 @@ void playMenu::initializeBoxes() {
             box.setOutlineColor(Color::Black);
             box.setOutlineThickness(2);
 
-            if (this->textures.count(keysBigBoxes[col])) { // Kiểm tra key "SURIKEN" có tồn tại trong map
-                box.setTexture(&textures[keysBigBoxes[col]]); // Lấy con trỏ và truyền vào setTexture()
+            if (this->texture.count(keysBigBoxes[col])) { 
+                box.setTexture(&texture[keysBigBoxes[col]]); 
             }
             else {
                 std::cerr << "Texture not found in map!" << std::endl;
@@ -72,6 +73,9 @@ void playMenu::initializeBoxes() {
 }
 
 bool playMenu::handleEvents() {
+
+    std::vector<sf::String> keysBigBoxes = { "SWORD", "KATANA", "SURIKEN" };
+
     Event event;
     while (window.pollEvent(event)) {
         if (event.type == Event::Closed) {
@@ -90,7 +94,10 @@ bool playMenu::handleEvents() {
 
             if (event.key.code == Keyboard::Enter) {
                 if (selectedSkills[currentRow] == -1) {
-                    selectedSkills[currentRow] = currentCol;
+                    {
+                        selectedSkills[currentRow] = currentCol;
+                        selectedSS[currentRow] = keysBigBoxes[currentCol];
+                    }
                     // chỗ này là nhét biến của Skill vào, tức là sau khi bấm Enter thì skill được giữ ở đây
                     if (currentRow < 2) currentRow++;
                     for (int i = 0; i < selectedSkills.size();i++) {
@@ -108,6 +115,7 @@ bool playMenu::handleEvents() {
                 if (selectedSkills[currentRow] == -1 && currentRow > 0) {
                     currentRow--;
                     selectedSkills[currentRow] = -1;
+                    selectedSS[currentRow] = sf::String("");
                 }
             }
         }
@@ -149,5 +157,12 @@ void playMenu::run() {
 
 playMenu::~playMenu()
 {
-    textures.clear();
+    texture.clear();
 }
+
+const std::vector<sf::String>& playMenu::getSelectedSkills() const
+{
+    return selectedSS;
+}
+
+

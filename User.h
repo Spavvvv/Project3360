@@ -10,6 +10,7 @@
 
 class User
 {
+
 public:
     int id;
     std::string name;
@@ -18,12 +19,12 @@ public:
 
     User(int id = 0, const std::string& name = "", const std::string& password = "", int score = 0);
 
+    static void saveUserData(const User& users, const std::string& filename);
     static void saveUserData(const std::vector<User>& users, const std::string& filename);
     static std::vector<User> loadUserData(const std::string& filename);
     static void displayUserIDsByScore(sf::RenderWindow& window, const std::vector<User>& users);
-    static bool registerUser(sf::RenderWindow& window, std::vector<User>& users);
-    static bool loginUser(sf::RenderWindow& window, std::vector<User>& users);
+    static bool registerUser(sf::RenderWindow& window, std::vector<User>& users,User &user);
+    static bool loginUser(sf::RenderWindow& window, std::vector<User>& users,User &user);
     bool login(const std::string& inputName, const std::string& inputPassword) const;
-
 };
 

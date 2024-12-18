@@ -15,6 +15,7 @@ int choice;
 int pagenum = 1000;
 bool loggedIn = false;
 
+
 EventManager::EventManager()
     : MENU(sf::VideoMode(1400, 1000), "Game", sf::Style::Close | sf::Style::Titlebar),
     mainMenu(1400, 1000),
@@ -22,7 +23,20 @@ EventManager::EventManager()
     users(User::loadUserData(filename)),
     pagenum(1000),
     loggedIn(false) {
+    user = new User;
 }
+
+playMenu* EventManager::getPlayMenu() const
+{
+    return menu;
+}
+
+User* EventManager::getUser() const
+{
+    return user;
+}
+
+
 
 void EventManager::handleMainMenu() {
     while (MENU.isOpen()) {
@@ -58,7 +72,7 @@ void EventManager::handleMainMenu() {
 }
 
 void EventManager::handleLoginPage() {
-    if (User::loginUser(MENU, users)) {
+    if (User::loginUser(MENU, users,*user)) {
         loggedIn = true;
         pagenum = 10;
     }
@@ -69,7 +83,7 @@ void EventManager::handleLoginPage() {
 }
 
 void EventManager::handleRegisterPage() {
-    if (User::registerUser(MENU, users)) {
+    if (User::registerUser(MENU, users,*user)) {
         pagenum = 10;
     }
     else {
@@ -83,20 +97,20 @@ void EventManager::handleDisplayScores() {
 }
 
 void EventManager::handlePlayMenu() {
-    playMenu menu(MENU);
-    menu.run();
+    menu = new playMenu(MENU);
+    menu->run();
     pagenum = 1000;
     //MENU.close();
 }
 
-void EventManager::run() {
+bool EventManager::run() {
     while (true) {
         if (pagenum == 1000) {
             handleMainMenu();
         }
         if (pagenum == -1) {
             MENU.close();
-            break;
+            return false;
         }
         if (pagenum == 0) {
             handleLoginPage();
@@ -109,8 +123,14 @@ void EventManager::run() {
         }
         if (pagenum == 10) {
             handlePlayMenu();
-            break;
+            return true;
         }
     }
+    return false;
+}
+
+EventManager::~EventManager()
+{
+    //delete menu;
 }
 

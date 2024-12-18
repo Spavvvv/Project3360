@@ -1,4 +1,4 @@
-#include "User.h"
+﻿#include "User.h"
 #pragma once
 
 #include <iostream>
@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <string>
 #include <vector>
+#include <sstream>
 
 #include <SFML/Graphics.hpp>
 
@@ -16,7 +17,56 @@ User::User(int id, const string& name, const string& password, int score)
     : id(id), name(name), password(password), score(score) {
 }
 
-void User::saveUserData(const vector<User>& users, const string& filename) {
+void User::saveUserData(const User& updatedUser, const std::string& filename) {
+    std::ifstream inputFile(filename); // Mở file để đọc
+    std::vector<User> userList;        // Danh sách các User từ file
+    bool isUserUpdated = false;        // Biến kiểm tra xem user có được cập nhật không
+
+    // 1. Đọc dữ liệu từ file
+    if (inputFile.is_open()) {
+        std::string line;
+        while (std::getline(inputFile, line)) { // Đọc từng dòng dữ liệu từ file
+            std::stringstream ss(line);
+            User currentUser; // Đối tượng user tạm thời
+            char delimiter;   // Ký tự phân tách
+
+            ss >> currentUser.id >> delimiter;
+            std::getline(ss, currentUser.name, ',');
+            std::getline(ss, currentUser.password, ',');
+            ss >> currentUser.score;
+
+            // Kiểm tra nếu ID của currentUser trùng với updatedUser
+            if (currentUser.id == updatedUser.id) {
+                // Cập nhật thông tin của User trùng ID
+                currentUser.name = updatedUser.name;
+                currentUser.password = updatedUser.password;
+                currentUser.score = updatedUser.score;
+                isUserUpdated = true;
+            }
+
+            userList.push_back(currentUser); // Thêm user vào danh sách (sau khi kiểm tra/cập nhật)
+        }
+        inputFile.close();
+    }
+
+    // 2. Ghi lại các user (cập nhật) vào file
+    std::ofstream outputFile(filename, std::ios::trunc); // Mở file với chế độ ghi đè
+    if (outputFile.is_open()) {
+        for (const auto& user : userList) {
+            outputFile << user.id << ","
+                << user.name << ","
+                << user.password << ","
+                << user.score << std::endl;
+        }
+        outputFile.close();
+    }
+    else {
+        std::cerr << "Unable to open file for writing." << std::endl;
+    }
+}
+
+void User::saveUserData(const std::vector<User>& users, const std::string& filename)
+{
     ofstream file(filename);
     if (file.is_open()) {
         for (const auto& user : users) {
@@ -25,6 +75,7 @@ void User::saveUserData(const vector<User>& users, const string& filename) {
         file.close();
     }
 }
+
 vector<User> User::loadUserData(const string& filename) {
     vector<User> users;
     ifstream file(filename);
@@ -106,7 +157,8 @@ void User::displayUserIDsByScore(RenderWindow& window, const vector<User>& users
 bool User::login(const string& inputName, const string& inputPassword) const {
     return name == inputName && password == inputPassword;
 }
-bool User::registerUser(RenderWindow& window, vector<User>& users) {
+
+bool User::registerUser(RenderWindow& window, vector<User>& users,User &user_) {
     string name, password, tempInput;
     int id = 0;
 
@@ -158,6 +210,7 @@ bool User::registerUser(RenderWindow& window, vector<User>& users) {
                             }
                             else {
                                 field = 1;
+                                user_.id = id;
                                 prompt.setString("Enter Password :");
                                 tempInput.clear();
                             }
@@ -172,6 +225,7 @@ bool User::registerUser(RenderWindow& window, vector<User>& users) {
                             stoi(tempInput);
                             password = tempInput;
                             field = 2;
+                            user_.password = password;
                             prompt.setString("Enter Name:");
                             tempInput.clear();
                         }
@@ -182,6 +236,8 @@ bool User::registerUser(RenderWindow& window, vector<User>& users) {
                     }
                     else if (field == 2) {
                         name = tempInput;
+                        user_.name = name;
+                        user_.score = 0;
                         users.emplace_back(id, name, password, 0);
                         saveUserData(users, "user_data.txt");
                         prompt.setString("Registration successful!");
@@ -207,7 +263,7 @@ bool User::registerUser(RenderWindow& window, vector<User>& users) {
 
 
 
-bool User::loginUser(RenderWindow& window, vector<User>& users) {
+bool User::loginUser(RenderWindow& window, vector<User>& users, User &user_) {
     string inputPassword, tempInput;
     int inputID = 0, field = 0;
 
@@ -263,6 +319,11 @@ bool User::loginUser(RenderWindow& window, vector<User>& users) {
                                 });
 
                             if (it != users.end()) {
+                                user_.id = it->id;
+                                user_.name = it->name;
+                                user_.password = it->password;
+                                user_.score = it->score;
+
                                 prompt.setString("Login Successful!");
                                 window.clear();
                                 window.draw(prompt);

@@ -17,6 +17,7 @@ protected:
 	int hp, hpmax;
 	float speed;
 	sf::Clock animationTime;
+	sf::Vector2f velocity;
 
 	sf::IntRect currentFrame;
 	void initVar();
@@ -25,6 +26,7 @@ protected:
 	void initAnimation();
 	float cooldownSkill1, cooldownSkill2, cooldownSkill3, cooldownnormalAttack;
 	float cooldownSkill1max, cooldownSkill2max, cooldownSkill3max, cooldownnormalAttackmax;
+
 
 	void waitTimeanimation();
 public:
@@ -36,6 +38,7 @@ public:
 	const sf::Vector2f getPosition();
 	void update();
 	void updateAnimation();
+	void updateCollision();
 	void updateTimena();
 	void updateTime1();
 	void updateTime2();
@@ -54,5 +57,8 @@ public:
 	int getCurrentHp();
 	const int& getHpMax() const;
 	void setCurrentHp(int hp);
+	void setPosition(const float xpo, const float ypo);
+	void resetVelocity();
+
 };
 

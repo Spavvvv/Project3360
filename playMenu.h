@@ -11,14 +11,15 @@
 
 using namespace sf;
 using namespace std;
+
 class playMenu {
 private:
     vector<RectangleShape> bigBoxes;
     vector<Text> bigBoxX;
     vector<vector<RectangleShape>> skillBoxes;
     vector<int> selectedSkills;
-    std::map<sf::String, sf::Texture> textures;
-
+    vector<sf::String> selectedSS;
+    std::map<sf::String, sf::Texture> texture;
 
     int currentRow, currentCol;
     Font font;
@@ -34,6 +35,8 @@ public:
     void run();
 
     ~playMenu();
+
+    const std::vector<sf::String>& getSelectedSkills() const;             
 };
 
 

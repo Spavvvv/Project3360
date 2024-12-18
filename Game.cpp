@@ -7,17 +7,30 @@ void Game::initWindow()
 	this->window->setVerticalSyncEnabled(false);
 }
 
-void Game::initTexture()
+void Game::initTexture(const playMenu& skillManager)
 {
-	//weapons
-	this->textures["SWORD"] = new sf::Texture();
-	this->textures["SWORD"]->loadFromFile("texture\\png\\weapon\\sword.png");
+	selectedSkills = skillManager.getSelectedSkills();
 
-	this->textures["KATANA"] = new sf::Texture();
-	this->textures["KATANA"]->loadFromFile("texture\\png\\weapon\\25.png");
+	for (auto i : selectedSkills) {
 
-	this->textures["SURIKEN"] = new sf::Texture();
-	this->textures["SURIKEN"]->loadFromFile("texture\\png\\weapon\\40.png");
+		if (i == sf::String("SWORD")) {
+			std::cout << "1" << '\n';
+			textures["SWORD"] = new sf::Texture();
+			if (!this->textures["SWORD"]->loadFromFile("texture\\png\\weapon\\25.png")) {
+				std::cout << "!!!!" << '\n';
+			}
+		}
+		else if (i == sf::String("KATANA")) {
+			std::cout << "2" << '\n';
+			textures["KATANA"] = new sf::Texture();
+			this->textures["KATANA"]->loadFromFile("texture\\png\\weapon\\sword.png");
+		}
+		else if (i == sf::String("SURIKEN")) {
+			std::cout << "3" << '\n';
+			textures["SURIKEN"] = new sf::Texture();
+			this->textures["SURIKEN"]->loadFromFile("texture\\png\\weapon\\40.png");
+		}
+	}
 
 	//enemies
 	this->textures["ENEMY_1"] = new sf::Texture();
@@ -28,6 +41,9 @@ void Game::initTexture()
 
 	this->textures["ENEMY_3"] = new sf::Texture();
 	this->textures["ENEMY_3"]->loadFromFile("texture\\enemy\\enemy_3.png");
+
+
+	std::cout << textures.size() << '\n';
 }
 
 void Game::initPlayer()
@@ -40,14 +56,16 @@ void Game::initPlayer()
 Game::Game()
 {
 	initMenu();
-	this->initWindow();
-	this->initTexture();
-	this->initPlayer();
-	initSystem();
-	initFont();
-	initText();
-	initGUI();
-
+	if(endGame != true)
+	{
+		this->initWindow();
+		this->initTexture(*menu);
+		this->initPlayer();
+		initSystem();
+		initFont();
+		initText();
+		initGUI();
+	}
 }
 
 Game::~Game()
@@ -74,6 +92,9 @@ Game::~Game()
 	for (auto* enemy : this->enemies) {
 		delete enemy;
 	}
+
+	delete menu;
+	delete user;
 }
 
 void Game::initFont()
@@ -164,8 +185,18 @@ void Game::initSystem()
 void Game::initMenu()
 {
 	EventManager eventManager;
-	eventManager.run();
-	//delete eventManager;
+
+	bool temp = eventManager.run();
+
+	if(temp == true)
+	{
+		menu = eventManager.getPlayMenu();
+		user = eventManager.getUser();
+		endGame = false;
+	}
+	else {
+		endGame = true;
+	}
 }
 
 //Functions
@@ -175,14 +206,12 @@ int Game::run()
 	{
 		this->pollEvent();
 
-		if (player->getCurrentHp() > 0 && nextStage == false)
+		if (player->getCurrentHp() > 0 && nextStage == false && endGame == false)
 		{
 			this->update();
 			this->render();
 		}
 	}
-	/*if(window->isOpen() == false)
-	return 0;*/
 
 	return 0;
 }
@@ -237,9 +266,6 @@ void Game::playerDecision()
 
 void Game::cleanUpState()
 {
-	//std::cout << weapons.size()<<'\n';
-	//std::cout << enemies.size()<<'\n';
-
 	//Delete weapons
 	for (auto* i : this->weapons)
 	{
@@ -295,6 +321,58 @@ void Game::deadAnimiation()
 
 }
 
+void Game::updateCollision()
+{
+	if (this->player->globalBound().top + this->player->globalBound().height > this->window->getSize().y)
+	{
+		this->player->resetVelocity();
+		this->player->setPosition(
+			this->player->globalBound().left,
+			this->window->getSize().y - this->player->globalBound().height
+		);
+	}
+
+	if (this->player->globalBound().top < 0.f)
+	{
+		this->player->resetVelocity();
+		this->player->setPosition(
+			this->player->globalBound().left,
+			0.f
+		);
+	}
+
+	if (this->player->globalBound().left < 0.f)
+	{
+		this->player->resetVelocity();
+		this->player->setPosition(
+			0.f,
+			this->player->globalBound().top
+		);
+	}
+
+	// Cạnh bên phải màn hình
+	if (this->player->globalBound().left + this->player->globalBound().width > this->window->getSize().x)
+	{
+		this->player->resetVelocity();
+		this->player->setPosition(
+			this->window->getSize().x - this->player->globalBound().width,
+			this->player->globalBound().top
+		);
+	}
+}
+
+void Game::saveGame()
+{
+	user->score = point;
+	user->saveUserData(*user, "user_data.txt");
+}
+
+bool Game::getEndGame() const
+{
+	return endGame;
+}
+
+
 void Game::pollEvent()
 {
 
@@ -348,17 +426,18 @@ void Game::updateMovement()
 		this->player->animateStatus = PLAYER_ANIMATION_STATUS::ATTACKING2;
 		if (true)
 		{
-			this->weapons.push_back(
-				new bigSword(
-					this->textures["SWORD"],
-					1.f,
-					0.f,
-					this->player->getPosition().x,
-					this->player->getPosition().y,
-					5.f + LEVEL * 0.1f,
-					40 + LEVEL
-				)
-			);
+					//window->draw(temp);
+					this->weapons.push_back(
+						new bigSword(
+							textures[selectedSkills[1]],
+							1.f,
+							0.f,
+							this->player->getPosition().x,
+							this->player->getPosition().y,
+							5.f + LEVEL * 0.1f,
+							40 + LEVEL
+						)
+					);
 		}
 		else
 		{
@@ -374,18 +453,20 @@ void Game::updateMovement()
 		this->player->canAttackna())
 	{
 		this->player->animateStatus = PLAYER_ANIMATION_STATUS::ATTACKING;
-		this->weapons.push_back(
-			new katana(
-				this->textures["KATANA"],
-				1.f,
-				0.f,
-				this->player->getPosition().x,
-				this->player->getPosition().y,
-				10.f + LEVEL * 0.5,
-				20 + LEVEL * 10
-			)
-		);
 
+		size_t currentIndex = 0;
+		
+				this->weapons.push_back(
+					new katana(
+						textures[selectedSkills[0]],
+						1.f,
+						0.f,
+						this->player->getPosition().x,
+						this->player->getPosition().y,
+						10.f + LEVEL * 0.5,
+						20 + LEVEL * 10
+					)
+				);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
 		std::cout << "normal attack 1 is on cooldown" << std::endl;
@@ -394,39 +475,40 @@ void Game::updateMovement()
 		this->player->canAttack2())
 	{
 		this->player->animateStatus = PLAYER_ANIMATION_STATUS::ATTACKING3;
-		this->weapons.push_back(
-			new suriken(
-				this->textures["SURIKEN"],
-				1.f,
-				0.f,
-				this->player->getPosition().x,
-				this->player->getPosition().y,
-				10.f + LEVEL,
-				20 + LEVEL * 0.3
-			)
-		);
-		this->weapons.push_back(
-			new suriken(
-				this->textures["SURIKEN"],
-				1.f,
-				0.f,
-				this->player->getPosition().x,
-				this->player->getPosition().y - 30.f,
-				9.f + LEVEL,
-				20 + LEVEL * 0.3
-			)
-		); 
-		this->weapons.push_back(
-			new suriken(
-				this->textures["SURIKEN"],
-				1.f,
-				0.f,
-				this->player->getPosition().x,
-				this->player->getPosition().y + 30.f,
-				9.f + LEVEL,
-				20 + LEVEL * 0.3
-			)
-		);
+		
+				this->weapons.push_back(
+					new suriken(
+						textures[selectedSkills[2]],
+						1.f,
+						0.f,
+						this->player->getPosition().x,
+						this->player->getPosition().y,
+						10.f + LEVEL,
+						20 + LEVEL * 0.3
+					)
+				);
+				this->weapons.push_back(
+					new suriken(
+						textures[selectedSkills[2]],
+						1.f,
+						0.f,
+						this->player->getPosition().x,
+						this->player->getPosition().y - 30.f,
+						9.f + LEVEL,
+						20 + LEVEL * 0.3
+					)
+				);
+				this->weapons.push_back(
+					new suriken(
+						textures[selectedSkills[2]],
+						1.f,
+						0.f,
+						this->player->getPosition().x,
+						this->player->getPosition().y + 30.f,
+						9.f + LEVEL,
+						20 + LEVEL * 0.3
+					)
+				);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) {
 		std::cout << "normal attack 3 is on cooldown" << std::endl;
@@ -474,6 +556,7 @@ void Game::update()
 	//update combat
 	this->updateCombat();
 	updateGUI();
+	updateCollision();
 }
 
 
@@ -611,7 +694,10 @@ void Game::updateCombat() {
 			if (this->player->getCurrentHp() <= 0) {
 				this->player->setCurrentHp(0);
 				std::cout << "Player is dead\n";
+
+				saveGame();
 				deadAnimiation();
+
 				endGame = true;
 			}
 		}
@@ -643,6 +729,12 @@ void Game::updateEnemies() {
 		{
 			player->setCurrentHp(player->getCurrentHp() - enemies[i]->getDamage());
 			std::cout << "Enemy ran !" << '\n';
+
+			if (player->getCurrentHp() <= 0) {
+				endGame = true;
+				saveGame();
+			}
+
 			delete this->enemies[i];
 			this->enemies.erase(this->enemies.begin() + i);
 		}

@@ -39,7 +39,7 @@ private:
 	// game logic
 	void initWindow();
 	void initPlayer();
-	void initTexture();
+	void initTexture(const playMenu& skillManager);
 
 	//enemy
 	std::vector<Enemy*> enemies;  // Vector to hold enemy instances
@@ -66,6 +66,10 @@ private:
 	int LEVEL;
 	int LEVELMAX;
 
+	playMenu* menu;
+	std::vector<sf::String> selectedSkills;
+	User* user;
+
 public:
 	int sk1 = 0;
 	Game();
@@ -91,7 +95,9 @@ public:
 	void cleanUpState();
 	void CompleteGame();
 	void deadAnimiation();
-
+	void updateCollision();
+	void saveGame();
+	bool getEndGame() const;
 
 	void spawnEnemy();           // Method to spawn a new enemy
 	void updateEnemies();        // Update all enemies

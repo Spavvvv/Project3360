@@ -26,7 +26,17 @@ private:
     void handleDisplayScores();
     void handlePlayMenu();
 
+    playMenu* menu;
+    User* user;
+
 public:
     EventManager();
-    void run();
+
+    playMenu* getPlayMenu() const;
+
+    User* getUser() const;
+
+    bool run();
+
+    ~EventManager();
 };

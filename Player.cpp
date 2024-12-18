@@ -217,6 +217,11 @@ void Player::updateAnimation()
 	}
 }
 
+void Player::updateCollision()
+{
+
+}
+
 
 void Player::waitTimeanimation()
 {
@@ -357,4 +362,14 @@ const int& Player::getHpMax() const
 void Player::setCurrentHp(int hp)
 {
 	this->hp = hp;
+}
+
+void Player::setPosition(const float xpo, const float ypo)
+{
+	this->sprite.setPosition(xpo, ypo);
+}
+
+void Player::resetVelocity()
+{
+	this->velocity.y = 0.f;
 }
