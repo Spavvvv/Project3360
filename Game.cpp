@@ -240,6 +240,7 @@ void Game::playerDecision()
 						std::cout << "Max monster: " << countMonsterMax << '\n';
 
 						LEVEL++;
+						nextStageText.setString("Done Stage " + std::to_string(LEVEL));
 						nextStage = false;
 					}
 					else {
