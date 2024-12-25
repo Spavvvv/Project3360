@@ -5,14 +5,14 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 
-enum PLAYER_ANIMATION_STATUS{ IDLE = 0, MOVING_RIGHT, MOVING_LEFT, ATTACKING, ATTACKING2, ATTACKING3};
+enum PLAYER_ANIMATION_STATUS{ IDLE = 0, MOVING_RIGHT, MOVING_LEFT, DEATH, ATTACKING, ATTACKING2, ATTACKING3};
 
 
 
 class Player
 {
 protected:
-	sf::Texture texture, texture2, texture3, texture4, texture5;
+	sf::Texture texture, texture2, texture3, texture4, texture5, texture6;
 	sf::Sprite sprite;
 	int hp, hpmax;
 	float speed;
@@ -26,19 +26,19 @@ protected:
 	void initAnimation();
 	float cooldownSkill1, cooldownSkill2, cooldownSkill3, cooldownnormalAttack;
 	float cooldownSkill1max, cooldownSkill2max, cooldownSkill3max, cooldownnormalAttackmax;
+	short animateStatus;
 
 
 	void waitTimeanimation();
 public:
 	Player();
-	short animateStatus;
-	bool moving, jumping, attacking;
+	void setAnimateStatus(short an);
+	short getAnimateStatus() const;
 	virtual ~Player();
 	const sf::FloatRect globalBound() const;
 	const sf::Vector2f getPosition();
 	void update();
 	void updateAnimation();
-	void updateCollision();
 	void updateTimena();
 	void updateTime1();
 	void updateTime2();

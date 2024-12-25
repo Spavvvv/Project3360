@@ -49,6 +49,7 @@ void Game::initTexture(const playMenu& skillManager)
 void Game::initPlayer()
 {
 	this->player = new Player();
+	this->canUsekeyBoard = 1;
 }
 
 
@@ -319,7 +320,7 @@ void Game::CompleteGame()
 
 void Game::deadAnimiation()
 {
-
+	this->player->setAnimateStatus(PLAYER_ANIMATION_STATUS::DEATH);
 }
 
 void Game::updateCollision()
@@ -395,36 +396,36 @@ void Game::updateMovement()
 {
 
 	//Move player
-	if (this->player->animateStatus != PLAYER_ANIMATION_STATUS::ATTACKING && 
-		this->player->animateStatus != PLAYER_ANIMATION_STATUS::ATTACKING2 && 
-		this->player->animateStatus != PLAYER_ANIMATION_STATUS::ATTACKING3) {
-		this->player->animateStatus = PLAYER_ANIMATION_STATUS::IDLE;
+	if (this->player->getAnimateStatus() != PLAYER_ANIMATION_STATUS::ATTACKING && 
+		this->player->getAnimateStatus() != PLAYER_ANIMATION_STATUS::ATTACKING2 &&
+		this->player->getAnimateStatus() != PLAYER_ANIMATION_STATUS::ATTACKING3) {
+		this->player->setAnimateStatus(PLAYER_ANIMATION_STATUS::IDLE);
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && canUsekeyBoard == 1)
 	{
 		this->player->movement(-1.f, 0.f);
-		this->player->animateStatus = PLAYER_ANIMATION_STATUS::MOVING_LEFT;
+		this->player->setAnimateStatus(PLAYER_ANIMATION_STATUS::MOVING_LEFT);
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && canUsekeyBoard == 1)
 	{
 		this->player->movement(1.f, 0.f);
-		this->player->animateStatus = PLAYER_ANIMATION_STATUS::MOVING_RIGHT;
+		this->player->setAnimateStatus(PLAYER_ANIMATION_STATUS::MOVING_RIGHT);
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && canUsekeyBoard == 1)
 	{
 		this->player->movement(0.f, -1.f);
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && canUsekeyBoard == 1)
 	{
 		this->player->movement(0.f, 1.f);
 	}
 
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) && 
-		this->player->canAttack1())
+		this->player->canAttack1() && canUsekeyBoard == 1)
 	{
-		this->player->animateStatus = PLAYER_ANIMATION_STATUS::ATTACKING2;
+		this->player->setAnimateStatus(PLAYER_ANIMATION_STATUS::ATTACKING2);
 		if (true)
 		{
 					//window->draw(temp);
@@ -445,15 +446,15 @@ void Game::updateMovement()
 			std::cout << "Pls choose your skill!" << std::endl;
 		}
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)){
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) && canUsekeyBoard == 1){
 		std::cout << "normal attack 2 is on cooldown" << std::endl;
 	}
 
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) &&
-		this->player->canAttackna())
+		this->player->canAttackna() && canUsekeyBoard == 1)
 	{
-		this->player->animateStatus = PLAYER_ANIMATION_STATUS::ATTACKING;
+		this->player->setAnimateStatus(PLAYER_ANIMATION_STATUS::ATTACKING);
 
 		size_t currentIndex = 0;
 		
@@ -469,13 +470,13 @@ void Game::updateMovement()
 					)
 				);
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) && canUsekeyBoard == 1)  {
 		std::cout << "normal attack 1 is on cooldown" << std::endl;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) &&
-		this->player->canAttack2())
+		this->player->canAttack2() && canUsekeyBoard == 1)
 	{
-		this->player->animateStatus = PLAYER_ANIMATION_STATUS::ATTACKING3;
+		this->player->setAnimateStatus(PLAYER_ANIMATION_STATUS::ATTACKING3);
 		
 				this->weapons.push_back(
 					new suriken(
@@ -511,7 +512,7 @@ void Game::updateMovement()
 					)
 				);
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) {
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) && canUsekeyBoard == 1) {
 		std::cout << "normal attack 3 is on cooldown" << std::endl;
 	}
 }
@@ -698,6 +699,15 @@ void Game::updateCombat() {
 
 				saveGame();
 				deadAnimiation();
+				this->canUsekeyBoard = 0;
+				sf::Clock animationClock;
+				while (animationClock.getElapsedTime().asSeconds() < 1.0f) {
+					this->player->updateAnimation(); // Cập nhật frame animation
+					this->window->clear();
+					this->renderPlayer(); // Render animation chết
+					this->window->display();
+				}
+				
 
 				endGame = true;
 			}

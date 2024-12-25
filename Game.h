@@ -65,6 +65,7 @@ private:
 
 	int LEVEL;
 	int LEVELMAX;
+	bool canUsekeyBoard;
 
 	playMenu* menu;
 	std::vector<sf::String> selectedSkills;

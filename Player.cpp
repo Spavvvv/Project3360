@@ -29,6 +29,10 @@ void Player::initTexture()
 	{
 		std::cout << "Could not load the character file" << std::endl;
 	}
+	if (!texture6.loadFromFile("texture\\Samurai\\Dead.png"))
+	{
+		std::cout << "Could not load the character file" << std::endl;
+	}
 }
 
 void Player::initSprite()
@@ -47,9 +51,6 @@ void Player::initAnimation()
 void Player::initVar()
 {
 	this->animateStatus = PLAYER_ANIMATION_STATUS::IDLE;
-	this->attacking = false;
-	this->jumping = false;
-	this->moving = false;
 	this->speed = 3.f;
 	this->hpmax = 100;
 	this->hp = this->hpmax;
@@ -69,6 +70,16 @@ Player::Player()
 	this->initSprite();
 	this->initVar();
 	this->initAnimation();
+}
+
+void Player::setAnimateStatus(short an)
+{
+	animateStatus = an;
+}
+
+short Player::getAnimateStatus() const
+{
+	return animateStatus;
 }
 
 Player::~Player()
@@ -215,14 +226,25 @@ void Player::updateAnimation()
 			this->sprite.setTextureRect(currentFrame);
 		}
 	}
+	//DEATH
+	else if (this->animateStatus == PLAYER_ANIMATION_STATUS::DEATH)
+	{
+		if (this->animationTime.getElapsedTime().asSeconds() >= frameDurationIdle)
+		{
+			this->currentFrame.left += 128;
+
+			if (this->currentFrame.left >= 640)
+			{
+				this->currentFrame.left = 0;
+			}
+
+			this->animationTime.restart();
+
+			this->sprite.setTexture(texture6);
+			this->sprite.setTextureRect(currentFrame);
+		}
+	}
 }
-
-void Player::updateCollision()
-{
-
-}
-
-
 void Player::waitTimeanimation()
 {
 	if (this->animationTime.getElapsedTime().asSeconds() >= 5.f) {
