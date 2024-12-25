@@ -3,7 +3,7 @@
 #include <iostream>
 
 Enemy::Enemy(sf::Texture* text, float scaleX, float scaleY, float dirx, float diry, float startX, float startY
-    , uint16_t mHp, float spd, uint16_t dmg, uint16_t point) {
+    , uint16_t mHp, float spd, uint16_t dmg, uint16_t point, bool isbo) {
 
     // check valid sprite
     if (text != nullptr) {
@@ -26,7 +26,7 @@ Enemy::Enemy(sf::Texture* text, float scaleX, float scaleY, float dirx, float di
 
     this->maxHP = mHp;
     this->currentHP = mHp;
-
+    this->isBonus = isbo;
     this->sprite.setScale(scaleX, scaleY);
 }
 
@@ -76,6 +76,11 @@ void Enemy::setMaxHp(uint16_t mHP) {
 
 void Enemy::setScale(float xScale, float yScale) {
     this->sprite.setScale(sf::Vector2f(xScale, yScale));
+}
+
+bool Enemy::getBonusStatus()
+{
+    return isBonus;
 }
 
 // Update the enemy's position

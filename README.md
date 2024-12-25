@@ -1,5 +1,7 @@
 # CS - 3360
 #Change Logs
+## [Version 0.9.1.4] - 12-25-2024
+- new colected item- water melon help to increase speed
 ## [Version 0.9.1.3] - 12-25-2024
 - dead animation update, arrange animation structure
 

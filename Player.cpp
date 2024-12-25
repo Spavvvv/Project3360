@@ -366,11 +366,10 @@ void Player::setHpMax(const int& Hp)
 	hp = hpmax;
 }
 
-//void Player::setDamage(int& Damage)
-//{
-//	
-//}
-
+void Player::setSpeed(float sp)
+{
+	speed = sp;
+}
 int Player::getCurrentHp()
 {
 	return this->hp;
@@ -379,6 +378,11 @@ int Player::getCurrentHp()
 const int& Player::getHpMax() const
 {
 	return hpmax;
+}
+
+float Player::getSpeed() const
+{
+	return speed;
 }
 
 void Player::setCurrentHp(int hp)

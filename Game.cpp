@@ -41,6 +41,8 @@ void Game::initTexture(const playMenu& skillManager)
 
 	this->textures["ENEMY_3"] = new sf::Texture();
 	this->textures["ENEMY_3"]->loadFromFile("texture\\enemy\\enemy_3.png");
+	this->textures["FRUIT"] = new sf::Texture();
+	this->textures["FRUIT"]->loadFromFile("texture\\enemy\\watermelon.png");
 
 
 	std::cout << textures.size() << '\n';
@@ -600,7 +602,7 @@ void Game::spawnEnemy() {
 	int totalWeight = 100; // Tổng trọng số 100% cho loại quái
 	int rate1 = std::max(20, 60 - LEVEL * 3); // Quái 1 giảm tỷ lệ dần (tối thiểu còn 20%)
 	int rate2 = std::min(60, 30 + LEVEL * 2); // Quái 2 tăng tỷ lệ dần (tối đa 60%)
-	int rate3 = totalWeight - rate1 - rate2;  // Quái 3 là phần còn lại (xảy ra nhiều dần)
+	int rate3 = totalWeight - rate1 - rate2 - 5;  // Quái 3 là phần còn lại (xảy ra nhiều dần)
 
 	// Đảm bảo không có giá trị âm cho tỷ lệ quái
 	rate1 = std::max(0, rate1);
@@ -614,18 +616,24 @@ void Game::spawnEnemy() {
 	if (randomType < rate1) {
 		// Spawn ENEMY_1
 		enemies.push_back(new Enemy(this->textures["ENEMY_1"], 0.1f, 0.1f, dirX, dirY, startX, startY,
-			15 + LEVEL * 1.5f, 1.5f + LEVEL * 0.2f, 30 + LEVEL * 0.1f, 10 + LEVEL * 1.5f));
+			15 + LEVEL * 1.5f, 1.5f + LEVEL * 0.2f, 30 + LEVEL * 0.1f, 10 + LEVEL * 1.5f, false));
 	}
-	else if (randomType < rate1 + rate2) {
+	else if (randomType < rate2) {
 		// Spawn ENEMY_2
 		enemies.push_back(new Enemy(this->textures["ENEMY_2"], 0.2f, 0.2f, dirX, dirY, startX, startY,
-			20 + LEVEL * 1.8f, 2.0f + LEVEL * 0.2f, 40 + LEVEL * 0.2f, 20 + LEVEL * 2.0f));
-	}
-	else {
+			20 + LEVEL * 1.8f, 2.0f + LEVEL * 0.2f, 40 + LEVEL * 0.2f, 20 + LEVEL * 2.0f, false));
+	} else if (randomType > 95 && randomType <= 100)
+	{
+		enemies.push_back(new Enemy(this->textures["FRUIT"], 0.01f, 0.01f, dirX, dirY, startX, startY,
+			5, 2.5f + LEVEL * 0.05f, 0, 0, true));
+		std::cout << "fruit " << std::endl;
+	} else{
 		// Spawn ENEMY_3
 		enemies.push_back(new Enemy(this->textures["ENEMY_3"], 0.3f, 0.3f, dirX, dirY, startX, startY,
-			25 + LEVEL * 2.0f, 2.5f + LEVEL * 0.05f, 50, 30 + LEVEL * 2.5f));
+			25 + LEVEL * 2.0f, 2.5f + LEVEL * 0.05f, 50, 30 + LEVEL * 2.5f, false));
 	}
+	
+	
 }
 
 
@@ -640,10 +648,11 @@ void Game::updateCombat() {
 				//subtract enemy health
 				if (enemies[j]->getCurrentHp() - this->weapons[i]->getDamage() <= 0) {
 					this->enemies[j]->setCurrentHp(0);
-				}
+				} 
 				else
 					this->enemies[j]->setCurrentHp(
 						enemies[j]->getCurrentHp() - this->weapons[i]->getDamage());
+
 
 				//delete enemy when collison happen and hp of enemy reach 0
 				if (this->enemies[j]->getCurrentHp() <= 0) {
@@ -688,6 +697,11 @@ void Game::updateCombat() {
 	if (nextStage == false)
 	for (int j = this->enemies.size() - 1; j >= 0; --j) {
 		if (this->player->globalBound().intersects(this->enemies[j]->getBounds())) {
+			if (enemies[j]->getBonusStatus() == true)
+			{
+				this->player->setSpeed(this->player->getSpeed() * 1.25);
+				std::cout << "bonus" << std::endl;
+			}
 			this->player->setCurrentHp(this->player->getCurrentHp() - (this->enemies[j]->getDamage()));
 			std::cout << "Player gets hit: - " << this->enemies[j]->getDamage() << "damage \n";
 			//remove enemy when collison happen

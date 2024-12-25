@@ -52,10 +52,12 @@ public:
 
 
 	void setHpMax(const int& Hp);
+	void setSpeed(float sp);
 	//void setDamage(int& Damage);
 
 	int getCurrentHp();
 	const int& getHpMax() const;
+	float getSpeed() const;
 	void setCurrentHp(int hp);
 	void setPosition(const float xpo, const float ypo);
 	void resetVelocity();

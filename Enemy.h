@@ -12,7 +12,7 @@ private:
 	uint16_t damage;
 	uint16_t point;				//score of the enemy
 	float speed;
-
+	bool isBonus;
 	//sprite, texture and direction to move enemy
 	sf::Sprite sprite;
 	sf::Texture* texture = nullptr;
@@ -21,7 +21,7 @@ private:
 public:
 
 	Enemy(sf::Texture* texture, float scaleX, float scaleY, float dirx, float diry, float startX, float startY
-		, uint16_t mHp, float speed, uint16_t dmg, uint16_t point);
+		, uint16_t mHp, float speed, uint16_t dmg, uint16_t point, bool isBonus);
 
 	// getter
 	const sf::FloatRect getBounds() const;   // Get the bounding box for collision detection
@@ -41,6 +41,8 @@ public:
 
 	void setScale(float xScale, float yScale);
 
+	//getter
+	bool getBonusStatus();
 	// Methods
 	void update();                            // Update the enemy's position
 	void render(sf::RenderTarget* target);    // Render the enemy
