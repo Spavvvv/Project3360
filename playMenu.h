@@ -38,7 +38,3 @@ public:
 
     const std::vector<sf::String>& getSelectedSkills() const;             
 };
-
-
-
-

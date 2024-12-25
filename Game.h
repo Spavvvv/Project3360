@@ -72,7 +72,6 @@ private:
 	User* user;
 
 public:
-	int sk1 = 0;
 	Game();
 	virtual ~Game();
 
@@ -88,7 +87,6 @@ public:
 	void render();
 	void renderPlayer();
 	void updateMovement();
-	void choosingSkill();
 	void updateWeapon();
 	void update();
 	int run();

@@ -117,7 +117,7 @@ void Game::initText()
 	endGameText.setFont(font);
 	endGameText.setCharacterSize(90);
 	endGameText.setFillColor(sf::Color::Red);
-	endGameText.setString("You are lose, NIGGA !");
+	endGameText.setString("You are lose !");
 	endGameText.setPosition(
 	window->getSize().x / 2.f - endGameText.getGlobalBounds().width / 2.f,
 	window->getSize().y / 2.f - endGameText.getGlobalBounds().height / 2.f
@@ -519,16 +519,6 @@ void Game::updateMovement()
 	}
 }
 
-
-void Game::choosingSkill()
-{
-	int index1;
-	std::cout << "Choosing your first skill" << std::endl;
-	std::cout << "1. Big sword" << std::endl;
-	std::cin >> index1;
-	sk1 = index1;
-
-}
 void Game::updateWeapon()
 {
 	// Duyệt ngược để xóa an toàn
@@ -622,7 +612,7 @@ void Game::spawnEnemy() {
 		// Spawn ENEMY_2
 		enemies.push_back(new Enemy(this->textures["ENEMY_2"], 0.2f, 0.2f, dirX, dirY, startX, startY,
 			20 + LEVEL * 1.8f, 2.0f + LEVEL * 0.2f, 40 + LEVEL * 0.2f, 20 + LEVEL * 2.0f, false));
-	} else if (randomType > 95 && randomType <= 100)
+	} else if (randomType > 85 && randomType <= 100)
 	{
 		enemies.push_back(new Enemy(this->textures["FRUIT"], 0.01f, 0.01f, dirX, dirY, startX, startY,
 			5, 2.5f + LEVEL * 0.05f, 0, 0, true));
