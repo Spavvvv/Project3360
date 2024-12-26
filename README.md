@@ -5,7 +5,7 @@
 - Increase fruits appear change to 15%
 - Change the endGameText
 ## [Version 0.9.1.4] - 12-25-2024 (thaiRuong)
-- new colected item- water melon help to increase speed
+- new colected item- watermelon help to increase speed
 ## [Version 0.9.1.3] - 12-25-2024 (thaiRuong)
 - dead animation update, arrange animation structure
 
