@@ -1,11 +1,16 @@
 # CS - 3360
 #Change Logs
+## [Version 0.9.1.6] - 12-27-2024(Soap)
+- Fixed the typo issue that make the program can not run in release mode
+
 ## [Version 0.9.1.5] - 12-25-2024(Soap)
 - Delete some useless functions
 - Increase fruits appear change to 15%
 - Change the endGameText
+
 ## [Version 0.9.1.4] - 12-25-2024 (thaiRuong)
 - new colected item- watermelon help to increase speed
+
 ## [Version 0.9.1.3] - 12-25-2024 (thaiRuong)
 - dead animation update, arrange animation structure
 
