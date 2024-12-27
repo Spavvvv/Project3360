@@ -1,5 +1,8 @@
-# CS - 3360
+# A Simple Fighting Game
 #Change Logs
+## [Version 1.0.0] - Release
+- Public the first release version of the game
+
 ## [Version 0.9.1.6] - 12-27-2024(Soap)
 - Fixed the typo issue that make the program can not run in release mode
 
