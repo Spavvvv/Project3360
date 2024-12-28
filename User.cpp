@@ -193,7 +193,7 @@ bool User::registerUser(RenderWindow& window, vector<User>& users,User &user_) {
                 if (event.text.unicode == '\b' && !tempInput.empty()) {
                     tempInput.pop_back();
                 }
-                else if (event.text.unicode < 128 && event.text.unicode != '\r' && event.text.unicode != 27) {
+                else if (event.text.unicode < 128 && event.text.unicode != '\r' && event.text.unicode != 27 && event.text.unicode !=8) {
                     tempInput += static_cast<char>(event.text.unicode);
                 }
                 else if (event.text.unicode == '\r') {
@@ -293,7 +293,7 @@ bool User::loginUser(RenderWindow& window, vector<User>& users, User &user_) {
                 if (event.text.unicode == '\b' && !tempInput.empty()) {
                     tempInput.pop_back();
                 }
-                else if (event.text.unicode < 128 && event.text.unicode != '\r' && event.text.unicode != 27) {
+                else if (event.text.unicode < 128 && event.text.unicode != '\r' && event.text.unicode != 27 && event.text.unicode !=8) {
                     tempInput += static_cast<char>(event.text.unicode);
                 }
                 else if (event.text.unicode == '\r') {
