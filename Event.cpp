@@ -107,6 +107,9 @@ bool EventManager::run() {
     while (true) {
         if (pagenum == 1000) {
             handleMainMenu();
+            if (MENU.isOpen() == false) {
+                return false;
+            }
         }
         if (pagenum == -1) {
             MENU.close();

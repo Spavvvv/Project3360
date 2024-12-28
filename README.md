@@ -1,5 +1,9 @@
 # A Simple Fighting Game
 #Change Logs
+## [Version 1.0.1] - Release
+- Fixing stupid backspace typo error in UI
+- Fixing the close window function when click "X" in the title bar
+
 ## [Version 1.0.0] - Release
 - Public the first release version of the game
 
